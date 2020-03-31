@@ -11,7 +11,7 @@ import { sort } from '../actions'
 const App = ({ lists, dispatch }) => {
 
   const onDragEnd = (result) => {
-    const { destination, source, draggableId } = result
+    const { destination, source, draggableId, type } = result
 
     if (!destination)
       return
@@ -22,7 +22,8 @@ const App = ({ lists, dispatch }) => {
         destination.droppableId,
         source.index,
         destination.index,
-        draggableId
+        draggableId,
+        type
       ))
     }
   }

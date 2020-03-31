@@ -12,7 +12,7 @@ const Form = ({ list, setOpen, id, dispatch }) => {
 
    const placeholder = list ? 'Dodaj tytuł listy...' : 'Dodaj treść karty...'
    const buttonTitle = list ? 'Dodaj Listę ' : 'Dodaj kartę'
-   const cardHeight = list ? 30 : 80
+   const cardheight = list ? 30 : 80
 
    const handleAddList = () => {
       if (value)
@@ -30,13 +30,13 @@ const Form = ({ list, setOpen, id, dispatch }) => {
 
    return (
       <FormWrapper>
-         <Card style={{ minHeight: cardHeight, minWidth: 250 }}>
+         <Card style={{ minHeight: cardheight, minWidth: 250 }}>
             <StyledTextArea
                placeholder={placeholder}
                value={value}
                onBlur={() => setOpen(false)}
                onChange={(e) => setValue(e.target.value)}
-               cardHeight={cardHeight}
+               cardheight={cardheight}
             />
          </Card>
          <StyledOptionWrapper>

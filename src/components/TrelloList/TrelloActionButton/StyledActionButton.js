@@ -26,7 +26,8 @@ export const StyledTextArea = styled(TextareaAutosize)`
    padding: 5px;
    outline: none;
    border: none;
-   min-height:${({ cardHeight }) => `${cardHeight}px`};
+   min-height:${({ cardheight }) => `${cardheight}px`};
+
    `
 
 export const StyledOptionWrapper = styled.div`

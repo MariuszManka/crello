@@ -12,7 +12,8 @@ export const sort = (
    droppableIdEnd,
    droppableIndexStart,
    droppableIndexEnd,
-   draggableId
+   draggableId,
+   type
 ) => {
    return {
       type: CONSTANS.DRAG_HAPPEND,
@@ -21,7 +22,8 @@ export const sort = (
          droppableIdEnd,
          droppableIndexStart,
          droppableIndexEnd,
-         draggableId
+         draggableId,
+         type
       }
    }
 

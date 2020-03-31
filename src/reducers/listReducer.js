@@ -5,29 +5,29 @@ let cardID = 4
 
 const initialState = [
    {
-      id: 0,
+      id: `list-${0}`,
       title: "Do zrobienia",
       cards: [
          {
-            id: 0,
+            id: `card-${0}`,
             text: "Sprawdzić błędy na gitlabie",
          },
          {
-            id: 1,
+            id: `card-${1}`,
             text: 'Zrobić poprawki szaty graficznej'
          }
       ]
    },
    {
-      id: 1,
+      id: `list-${1}`,
       title: "W trakcie",
       cards: [
          {
-            id: 2,
+            id: `card-${2}`,
             text: "Stworzyć implementację Trello",
          },
          {
-            id: 3,
+            id: `card-${3}`,
             text: 'Przepracować tutorial na Youtube'
          }
       ]
@@ -77,16 +77,31 @@ const listsReducer = (state = initialState, action) => {
             droppableIdEnd,
             droppableIndexStart,
             droppableIndexEnd,
-            draggableId
+            draggableId,
+            type
          } = action.payload
 
          const newState = [...state]
+
+         if (type === 'list') {
+            const list = newState.splice(droppableIndexStart, 1)
+            newState.splice(droppableIndexEnd, 0, ...list)
+            return newState
+         }
+
          //Same list drag
          if (droppableIdStart === droppableIdEnd) {
-
             const list = state.find(list => droppableIdStart === String(list.id))
             const card = list.cards.splice(droppableIndexStart, 1)
             list.cards.splice(droppableIndexEnd, 0, ...card)
+         }
+
+         //other list drag
+         if (droppableIdStart !== droppableIdEnd) {
+            const listStart = state.find(list => droppableIdStart === String(list.id))//card where drag happend
+            const card = listStart.cards.splice(droppableIndexStart, 1)//delete dragged card from one list
+            const listEnd = state.find(list => droppableIdEnd === String(list.id))//find list where drag ended
+            listEnd.cards.splice(droppableIndexEnd, 0, ...card)
          }
 
          return newState
