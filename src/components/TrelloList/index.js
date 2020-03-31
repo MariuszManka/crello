@@ -12,16 +12,14 @@ const TrelloList = ({ lists }) => {
       <Droppable droppableId="all-lists" direction="horizontal" type="list">
          {
             provided => (
-               <div
+               <StyledTrelloList
                   {...provided.droppableProps}
-                  ref={provided.innerRef}>
-                  <StyledTrelloList>
-                     <TrelloListWrapper list={lists} />
-                     {provided.placeholder}
-                     <ActionButton list={1} />
-                  </StyledTrelloList>
-               </div>
-
+                  ref={provided.innerRef}
+               >
+                  <TrelloListWrapper list={lists} />
+                  {provided.placeholder}
+                  <ActionButton list={1} />
+               </StyledTrelloList>
             )
          }
       </Droppable>

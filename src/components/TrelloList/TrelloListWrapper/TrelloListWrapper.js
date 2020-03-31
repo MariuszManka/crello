@@ -14,37 +14,36 @@ const TrelloList = ({ lists }) => {
          return (
             <Draggable draggableId={String(list.id)} index={index} key={list.id}>
                {provided => (
-                  <div
+                  <TrelloListWrapper
                      {...provided.draggableProps}
                      {...provided.dragHandleProps}
-                     ref={provided.innerRef}>
+                     ref={provided.innerRef}
 
-                     <TrelloListWrapper>
-                        <Droppable droppableId={String(list.id)}>
-                           {(provided) => (
-                              <div
-                                 {...provided.droppableProps}
-                                 ref={provided.innerRef}
-                              >
-                                 <ListHeading key={list.id} title={list.title} />
-                                 {
-                                    list.cards.map((card, index) =>
-                                       <ListCard
-                                          key={card.id}
-                                          text={card.text}
-                                          id={card.id}
-                                          index={index}
-                                       />
-                                    )
-                                 }
-                                 {provided.placeholder}
-                                 <ActionButton id={list.id} />
-                              </div>
-                           )
-                           }
-                        </Droppable>
-                     </TrelloListWrapper>
-                  </div>
+                  >
+                     <Droppable droppableId={String(list.id)}>
+                        {(provided) => (
+                           <div
+                              {...provided.droppableProps}
+                              ref={provided.innerRef}
+                           >
+                              <ListHeading key={list.id} title={list.title} />
+                              {
+                                 list.cards.map((card, index) =>
+                                    <ListCard
+                                       key={card.id}
+                                       text={card.text}
+                                       id={card.id}
+                                       index={index}
+                                    />
+                                 )
+                              }
+                              {provided.placeholder}
+                              <ActionButton id={list.id} />
+                           </div>
+                        )
+                        }
+                     </Droppable>
+                  </TrelloListWrapper>
                )
                }
 
