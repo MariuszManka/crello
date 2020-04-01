@@ -9,9 +9,18 @@ import styled from 'styled-components'
  */
 
 export const StlyedIcon = styled.i`
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-
 font-size: ${({ md }) => md && `${md}px`};
 cursor: pointer;
 color: ${({ theme, color }) => color && theme.colors[color]};
+transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+${({ theme, outlined }) => outlined && `
+   &:hover{
+      padding: 4px 4px 4px 4px;
+      border-radius: 3px;
+      background: rgba(9,30,66,.08);
+   }
+`};
+
+
 `

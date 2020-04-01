@@ -1,33 +1,18 @@
 import React, { useRef, useState } from 'react'
-import { Menu, MenuItem, Typography, Input, TextField, } from '@material-ui/core'
+import { Menu, MenuItem, } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { changeListTitle } from '../../actions'
+import { StyledInput } from './StyledContextMenu'
 
 const initialState = {
    mouseX: null,
    mouseY: null,
 }
 
-function ContextMenu({ children, isOpen, setOpen, dispatch, title }) {
-
-   const [state, setState] = useState(initialState)
-   const [value, setValue] = useState('')
-   const inputRef = useRef(null)
-
-   const handleClick = (e) => {
-      e.preventDefault()
-      setState({
-         mouseX: e.clientX - 2,
-         mouseY: e.clientY - 4,
-      })
-   }
-
-   const handleClose = () => {
-      setState(initialState)
-   }
+const Input = ({ setOpen, title, dispatch }) => {
+   const [value, setValue] = useState(title)
 
    const handleChange = (e) => {
-
       setValue(e.target.value)
    }
 
@@ -49,6 +34,36 @@ function ContextMenu({ children, isOpen, setOpen, dispatch, title }) {
       }
    }
 
+   return (
+      <StyledInput
+         variant="outlined"
+         onChange={handleChange}
+         onKeyDown={handleEnter}
+         onBlur={handleBlur}
+         fullWidth
+         value={value}
+         borderColor="#227EA7"
+
+      />
+   )
+}
+
+function ContextMenu({ children, isOpen, setOpen, dispatch, title }) {
+
+   const [state, setState] = useState(initialState)
+
+   const handleClick = (e) => {
+      e.preventDefault()
+      setState({
+         mouseX: e.clientX - 2,
+         mouseY: e.clientY - 4,
+      })
+   }
+
+   const handleClose = () => {
+      setState(initialState)
+   }
+
    const handleEdit = () => {
       setOpen(true)
       setState(initialState)
@@ -58,13 +73,8 @@ function ContextMenu({ children, isOpen, setOpen, dispatch, title }) {
          <div >
             {
                isOpen ?
-                  <Input
-                     onChange={handleChange}
-                     onKeyDown={handleEnter}
-                     onBlur={handleBlur}
-                  // ref={inputRef}
-                  // autoFocus={true}
-                  /> :
+                  <Input dispatch={dispatch} setOpen={setOpen} title={title} />
+                  :
                   children
             }
 
@@ -72,7 +82,7 @@ function ContextMenu({ children, isOpen, setOpen, dispatch, title }) {
          <Menu
             keepMounted
             open={state.mouseY !== null}
-            // onClose={handleClose}
+            onClose={handleClose}
             anchorReference="anchorPosition"
             anchorPosition={
                state.mouseY !== null && state.mouseX !== null

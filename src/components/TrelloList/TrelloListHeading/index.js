@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
-import { Heading } from './StyledListHeading'
+import { Heading, StyledHeaderWrapper } from './StyledListHeading'
 import ContextMenu from '../../ContextMenu/ContextMenu'
+import Icon from '../../Icon/Icon'
 
 export const ListHeading = ({ title }) => {
 
    const [isOpen, setOpen] = useState(false)
    return (
       <ContextMenu title={title} isOpen={isOpen} setOpen={setOpen}>
-         <Heading >{title}</Heading>
+         <StyledHeaderWrapper>
+            <Heading >{title} </Heading>
+            <Icon name="more_horiz" outlined />
+         </StyledHeaderWrapper>
       </ContextMenu>
    )
 }
