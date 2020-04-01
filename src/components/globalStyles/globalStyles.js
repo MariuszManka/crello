@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css?family=Raleway|Roboto:400,700&display=swap&subset=latin-ext');
 
     html {
     box-sizing: border-box;

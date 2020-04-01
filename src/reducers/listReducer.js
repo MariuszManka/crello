@@ -49,6 +49,15 @@ const listsReducer = (state = initialState, action) => {
             newList
          ]
 
+
+      case CONSTANS.CHANGE_LIST_TITLE:
+         const { title, newTitle } = action.payload
+         state.filter(v => v.title === title).map(list => {
+            list.title = newTitle
+            return list
+         })
+         return [...state]
+
       case CONSTANS.ADD_CARD: {
          const newCard = {
             text: action.payload.text,

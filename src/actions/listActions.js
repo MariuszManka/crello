@@ -7,6 +7,14 @@ export const addList = (title) => {
    }
 }
 
+export const changeListTitle = (title, newTitle) => {
+   return {
+      type: CONSTANS.CHANGE_LIST_TITLE,
+      payload: { title, newTitle }
+   }
+}
+
+
 export const sort = (
    droppableIdStart,
    droppableIdEnd,

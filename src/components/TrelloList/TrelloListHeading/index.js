@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Heading } from './StyledListHeading'
+import ContextMenu from '../../ContextMenu/ContextMenu'
 
 export const ListHeading = ({ title }) => {
+
+   const [isOpen, setOpen] = useState(false)
    return (
-      <Heading >{title}</Heading>
+      <ContextMenu title={title} isOpen={isOpen} setOpen={setOpen}>
+         <Heading >{title}</Heading>
+      </ContextMenu>
    )
 }
