@@ -7,7 +7,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Icon from '../Icon/Icon'
-import { StyledMenu, MenuHeader, MenuTextCenter } from './StyledMenu'
+import { StyledMenu, MenuHeader, MenuTextCenter, StyledList } from './StyledMenu'
 
 
 const menuIcons = [
@@ -17,13 +17,12 @@ const menuIcons = [
    { id: 3, icon: 'local_offer', description: 'Etykiety' },
    { id: 4, icon: 'archive', description: 'Archiwum' },
    { id: 5, icon: 'settings', description: 'Ustawienia' },
-   { id: 6, icon: 'forum', description: 'Aktywność' }
 ]
 
 
 
 export default function MiniDrawer() {
-   const theme = useTheme()
+
    const [open, setOpen] = React.useState(false)
 
    const handleToggle = () => {
@@ -33,7 +32,7 @@ export default function MiniDrawer() {
    return (
 
       <StyledMenu open={open}>
-         <MenuHeader>
+         <MenuHeader >
             <IconButton onClick={handleToggle} style={{ position: 'absolute' }}>
                <Icon name={open ? 'chevron_right' : 'chevron_left'} />
             </IconButton>
@@ -41,8 +40,6 @@ export default function MiniDrawer() {
                <p>Menu</p>
             </MenuTextCenter>
          </MenuHeader>
-
-
          <Divider />
          <List>
             {menuIcons.map((item, index) => (
@@ -52,7 +49,14 @@ export default function MiniDrawer() {
                </ListItem>
             ))}
          </List>
-         <Divider />
+         <StyledList>
+            <Divider />
+            <ListItem>
+               <ListItemIcon><Icon name="forum" /></ListItemIcon>
+               <ListItemText primary="Aktywność" />
+            </ListItem>
+
+         </StyledList>
       </StyledMenu>
 
    )

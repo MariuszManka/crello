@@ -4,8 +4,9 @@ import { ThemeProvider } from 'styled-components'
 import { connect } from 'react-redux'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { sort } from '../actions'
-import Menu from './Menu/Menu'
 import { theme, StyledAppGrid, GlobalStyle } from './globalStyles'
+import Menu from './Menu/Menu'
+import TopBar from './TopBar/TopBar'
 
 
 const App = ({ lists, dispatch }) => {
@@ -33,6 +34,7 @@ const App = ({ lists, dispatch }) => {
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <StyledAppGrid >
+          <TopBar />
           <TrelloList list={lists} />
           <Menu />
         </StyledAppGrid>
