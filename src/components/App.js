@@ -1,11 +1,11 @@
 import React from 'react'
 import TrelloList from './TrelloList'
-import GlobalStyle from './globalStyles/globalStyles'
-import theme from './globalStyles/ThemeProvider'
 import { ThemeProvider } from 'styled-components'
 import { connect } from 'react-redux'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { sort } from '../actions'
+import Menu from './Menu/Menu'
+import { theme, StyledAppGrid, GlobalStyle } from './globalStyles'
 
 
 const App = ({ lists, dispatch }) => {
@@ -32,7 +32,10 @@ const App = ({ lists, dispatch }) => {
     <DragDropContext onDragEnd={onDragEnd}>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <TrelloList list={lists} />
+        <StyledAppGrid >
+          <TrelloList list={lists} />
+          <Menu />
+        </StyledAppGrid>
       </ThemeProvider>
     </DragDropContext>
   )
