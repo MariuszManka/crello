@@ -1,12 +1,19 @@
 import { CONSTANS } from '../actions'
-
+/**
+ * 
+ * @param {String} title - tytuł nowej listy 
+ */
 export const addList = (title) => {
    return {
       type: CONSTANS.ADD_LIST,
       payload: title
    }
 }
-
+/**
+ * 
+ * @param {String} title  - stary tytuł, używany jako id
+ * @param {String} newTitle  - nowy tytuł
+ */
 export const changeListTitle = (title, newTitle) => {
    return {
       type: CONSTANS.CHANGE_LIST_TITLE,
@@ -34,6 +41,4 @@ export const sort = (
          type
       }
    }
-
-
 }

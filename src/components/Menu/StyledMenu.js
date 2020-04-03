@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { List } from '@material-ui/core'
 
-export const StyledMenu = styled.div`
+export const StyledMenuTemplate = styled.div`
    position:fixed;
    right: 0;
    bottom: 0;
@@ -12,19 +12,18 @@ export const StyledMenu = styled.div`
    width:${({ theme }) => theme.sizes.menu}; 
    background-color: ${({ theme }) => theme.colors.listBackground};
 
-& span{
-   font-size: 18px;
-}
+   & span{
+      font-size: 14px;
+   }
 
    &  i{
-      font-size: 35px;
       color:${({ theme }) => theme.colors.menuIcon};
    } 
 
    ${({ open }) => open && `
       transform: translateX(30px); 
          &  i{
-            font-size: 30px;
+            font-size: 25px;
          } 
    `}
 

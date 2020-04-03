@@ -14,5 +14,5 @@ export const StyledListContent = styled.div`
    top: ${({ theme }) => theme.sizes.topbar};
    width: 85vw;
    margin-right: ${({ theme }) => theme.sizes.menu};
-   overflow-x:auto;
+   /* overflow-x:auto; */
    `

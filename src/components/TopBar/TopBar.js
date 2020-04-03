@@ -34,9 +34,8 @@ const TopBarIcons = () => {
          <ListItemIcon>
             <Icon color="topbarIcons" name="info" />
          </ListItemIcon>
-
          <ListItemIcon>
-            <Badge badgeContent={4} color="error">
+            <Badge badgeContent={4} color="error"> {/** badgeContent odpowiada za wyświetlanie się powiadomień nad ikonami*/}
                <Icon color="topbarIcons" name="notifications_active" />
             </Badge>
          </ListItemIcon>
@@ -50,31 +49,6 @@ const TopBarIcons = () => {
 
 
 export default function TopBar() {
-
-   const [anchorEl, setAnchorEl] = React.useState(null)
-   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null)
-
-   const isMenuOpen = Boolean(anchorEl)
-   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
-
-   const handleProfileMenuOpen = (event) => {
-      setAnchorEl(event.currentTarget)
-   }
-
-   const handleMobileMenuClose = () => {
-      setMobileMoreAnchorEl(null)
-   }
-
-   const handleMenuClose = () => {
-      setAnchorEl(null)
-      handleMobileMenuClose()
-   }
-
-   const handleMobileMenuOpen = (event) => {
-      setMobileMoreAnchorEl(event.currentTarget)
-   }
-
-
 
    return (
       <StyledTopBar >
