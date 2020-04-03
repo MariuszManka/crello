@@ -4,14 +4,20 @@ import { List, Divider, ListItem, ListItemIcon, ListItemText } from '@material-u
 import { StyledList } from './StyledMenu'
 import MenuTemplate from './MenuTemplate'
 import { connect } from 'react-redux'
+import { menuOptionClick } from '../../actions/menuActions'
 
 
-function Menu({ icons }) {
+function Menu({ icons, dispatch }) {
+
+   const handleOptionClick = (id, title) => {
+      dispatch(menuOptionClick(id, title))
+   }
+
    return (
-      <MenuTemplate>
+      <MenuTemplate icons={icons}>
          <List>
             {icons.map(item => (
-               <ListItem button key={item.id}>
+               <ListItem button key={item.id} onClick={() => handleOptionClick(item.id, item.description)}>
                   <ListItemIcon><Icon name={item.icon} md={35} /></ListItemIcon>
                   <ListItemText primary={item.description} />
                </ListItem>

@@ -1,17 +1,20 @@
 import { CONSTANS } from '../actions'
+import React from 'react'
+import { InfoMenu, ChangePictureMenu, FindCardsMenu, TagsMenu, ArchiweMenu, SettingsMenu } from '../components/Menu/SubMenus'
 
 const initialState = {
    title: 'Menu',
    open: false,
    iconVisible: true,
    menuIcons: [
-      { id: 0, icon: 'info', description: 'Informacje o tablicy' },
-      { id: 1, icon: 'add_photo_alternate', description: 'Zmień tło' },
-      { id: 2, icon: 'search', description: 'Szukaj kart' },
-      { id: 3, icon: 'local_offer', description: 'Etykiety' },
-      { id: 4, icon: 'archive', description: 'Archiwum' },
-      { id: 5, icon: 'settings', description: 'Ustawienia' },
-   ]
+      { id: 0, icon: 'info', description: 'Informacje o tablicy', component: <InfoMenu /> },
+      { id: 1, icon: 'add_photo_alternate', description: 'Zmień tło', component: <ChangePictureMenu /> },
+      { id: 2, icon: 'search', description: 'Szukaj kart', component: <FindCardsMenu /> },
+      { id: 3, icon: 'local_offer', description: 'Etykiety', component: <TagsMenu /> },
+      { id: 4, icon: 'archive', description: 'Archiwum', component: <ArchiweMenu /> },
+      { id: 5, icon: 'settings', description: 'Ustawienia', component: <SettingsMenu /> },
+   ],
+   currentOption: [],
 }
 
 const menuReducer = (state = initialState, action) => {
@@ -47,7 +50,19 @@ const menuReducer = (state = initialState, action) => {
             const newState = state
             newState.open = isOpen
             newState.iconVisible = isIconVisible
+            newState.currentOption = []
             state.title = 'Menu'
+            return { ...newState }
+         }
+
+      case CONSTANS.MENU_OPTION_CLICK:
+         {
+
+            const { id, title } = action.payload
+            const newState = { ...state }
+            newState.currentOption = newState.menuIcons.filter(icon => icon.id === id)
+            newState.open = true
+            newState.title = title
             return { ...newState }
          }
 

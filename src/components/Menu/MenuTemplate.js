@@ -7,7 +7,7 @@ import { setMenuOpen, setIconVisible, menuClose } from '../../actions/menuAction
 
 const MenuTemplate = ({ children, dispatch, menu }) => {
 
-   const { title, open, iconVisible } = menu
+   const { title, open, iconVisible, currentOption } = menu
 
    const handleSetMenuOpen = () => {
       dispatch(setMenuOpen(true))
@@ -35,7 +35,12 @@ const MenuTemplate = ({ children, dispatch, menu }) => {
             </IconButton>
          </MenuHeader>
          <Divider />
-         {children}
+         {
+            currentOption.length === 0 ?
+               children
+               :
+               currentOption.map(option => option.component)
+         }
       </StyledMenuTemplate>
    )
 

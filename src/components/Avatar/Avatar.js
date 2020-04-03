@@ -4,7 +4,6 @@ import { Badge } from '@material-ui/core'
 
 
 const AvatarIcon = ({ alt, url, size, messages }) => {
-   console.log(alt)
 
    return (
       <>

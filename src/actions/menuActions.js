@@ -36,3 +36,10 @@ export const menuClose = (isOpen, isIconVisible) => {
       }
    }
 }
+
+export const menuOptionClick = (id, title) => {
+   return {
+      type: CONSTANS.MENU_OPTION_CLICK,
+      payload: { id, title }
+   }
+}
