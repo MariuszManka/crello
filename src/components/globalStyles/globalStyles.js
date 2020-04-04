@@ -22,7 +22,8 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Roboto', sans-serif;
     height: 100vh;
     /* overflow-x: hidden; */
-    background-color: #227EA7;
+    background-color: #fcae12;
+    /* background-color: #227EA7; */
   }
 
   button {
