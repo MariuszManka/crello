@@ -11,6 +11,7 @@ export const StyledMenuTemplate = styled.div`
    transition: transform .3s cubic-bezier(0.42, 0, 0.1, 1.51);
    width:${({ theme }) => theme.sizes.menu}; 
    background-color: ${({ theme }) => theme.colors.listBackground};
+   padding-right: 35px;
 
    & span{
       font-size: 14px;
@@ -41,8 +42,5 @@ export const MenuTextCenter = styled.div`
 `
 
 export const StyledList = styled.div`
-   position:absolute;
-   bottom: 0;
-   left: 0;
-   right: 0;
+
 `

@@ -9,7 +9,7 @@ import styled from 'styled-components'
  */
 
 export const StlyedIcon = styled.i`
-font-size: ${({ md }) => md && `${md}px`};
+font-size: ${({ md }) => md && `${md}px`} !important;
 cursor: pointer;
 color: ${({ theme, color }) => color && theme.colors[color]};
 transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);

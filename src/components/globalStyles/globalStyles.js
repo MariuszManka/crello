@@ -16,15 +16,16 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
     scroll-behavior: smooth;
   }
-
   body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    height: 100vh;
-    /* overflow-x: hidden; */
+    height:100%;
+    position:relative;
+    overflow:hidden;
     background-color: #fcae12;
-    /* background-color: #227EA7; */
+  /* background-color: #227EA7; */
   }
+
 
   button {
     padding: 0;

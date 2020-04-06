@@ -1,7 +1,11 @@
-export * from './InfoMenu'
-export * from './ChangePictureMenu'
-export * from './FindCardsMenu'
-export * from './TagsMenu'
-export * from './PinnedMenu'
-export * from './ArchiweMenu'
-export * from './SettingsMenu'
+import InfoMenu from './InfoMenu/InfoMenu'
+import TagsMenu from './TagsMenu/TagsMenu'
+
+
+export * from './ChangePictureMenu/ChangePictureMenu'
+export * from './FindCardsMenu/FindCardsMenu'
+export * from './PinnedMenu/PinnedMenu'
+export * from './ArchiveMenu/ArchiweMenu'
+export * from './SettingsMenu/SettingsMenu'
+
+export { InfoMenu, TagsMenu }

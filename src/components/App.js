@@ -4,9 +4,10 @@ import { ThemeProvider } from 'styled-components'
 import { connect } from 'react-redux'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { sort } from '../actions'
-import { theme, StyledAppGrid, GlobalStyle } from './globalStyles'
+import { theme, StyledAppGrid, StyledPageContent, GlobalStyle } from './globalStyles'
 import Menu from './Menu/Menu'
 import TopBar from './TopBar/TopBar'
+import { Grid } from '@material-ui/core'
 
 
 const App = ({ lists, dispatch }) => {
@@ -30,16 +31,18 @@ const App = ({ lists, dispatch }) => {
   }
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <GlobalStyle />
-      <ThemeProvider theme={theme}>
-        <StyledAppGrid >
+    <StyledAppGrid >
+      <DragDropContext onDragEnd={onDragEnd}>
+        <GlobalStyle />
+        <ThemeProvider theme={theme}>
           <TopBar />
-          <TrelloList list={lists} />
-          <Menu />
-        </StyledAppGrid>
-      </ThemeProvider>
-    </DragDropContext>
+          <StyledPageContent>
+            <TrelloList list={lists} />
+            <Menu />
+          </StyledPageContent>
+        </ThemeProvider>
+      </DragDropContext>
+    </StyledAppGrid>
   )
 }
 

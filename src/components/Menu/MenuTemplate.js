@@ -31,7 +31,7 @@ const MenuTemplate = ({ children, dispatch, menu }) => {
                <p>{title}</p>
             </MenuTextCenter>
             <IconButton style={{ position: 'absolute', right: 25, top: 0 }} onClick={handleCloseMenu}>
-               <Icon name='close' md={14} />
+               <Icon name='close' md={25} />
             </IconButton>
          </MenuHeader>
          <Divider />
