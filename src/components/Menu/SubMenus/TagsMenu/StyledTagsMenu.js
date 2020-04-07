@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import {
    ChromePicker
 } from 'react-color'
+import { TextField, Button } from '@material-ui/core'
 
 export const Tag = styled.div`
    width:85%;
@@ -26,11 +27,27 @@ export const Tag = styled.div`
 `
 
 export const StyledColorPicker = styled(ChromePicker)`
-   box-shadow: none !important;
+   margin: 0 auto !important;
+
+   ${({ theme, error }) => error && `
+      border: 1px solid ${theme.colors.error};
+   `};
 `
 
 export const StyledWrapper = styled.div`
    height: 100%;
    display:flex;
-   flex-direction:column
+   flex-direction:column;
+`
+
+export const StyledTextField = styled(TextField)`
+width: 100% !important;
+& input{
+   font-size: 15px !important;
+}
+
+`
+
+export const StyledButton = styled(Button)`
+   font-size: 16px !important;
 `
