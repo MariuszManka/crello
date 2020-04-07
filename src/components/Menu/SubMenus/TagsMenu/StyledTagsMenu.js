@@ -1,7 +1,7 @@
 
 import styled from 'styled-components'
 import {
-   SketchPicker
+   ChromePicker
 } from 'react-color'
 
 export const Tag = styled.div`
@@ -25,7 +25,7 @@ export const Tag = styled.div`
 
 `
 
-export const StyledColorPicker = styled(SketchPicker)`
+export const StyledColorPicker = styled(ChromePicker)`
    box-shadow: none !important;
 `
 

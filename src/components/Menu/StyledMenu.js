@@ -12,6 +12,7 @@ export const StyledMenuTemplate = styled.div`
    width:${({ theme }) => theme.sizes.menu}; 
    background-color: ${({ theme }) => theme.colors.listBackground};
    padding-right: 35px;
+   overflow-y:auto;
 
    & span{
       font-size: 14px;

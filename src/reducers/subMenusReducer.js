@@ -1,5 +1,7 @@
 import { CONSTANS } from '../actions'
 
+let tagsID = 5
+
 const initialState = {
    infoMenu: {
       author: 'Mariusz Mańka',
@@ -10,7 +12,7 @@ const initialState = {
    },
 
    tagsMenu: {
-      tagsColors: [
+      tags: [
          { id: 0, color: '#fe346e', name: 'Ważne', },
          { id: 1, color: '#8e44ad', name: 'Frontend', },
          { id: 2, color: '#f3c623', name: 'Do zrobienia', },
@@ -33,11 +35,27 @@ const subMenusReducer = (state = initialState, action) => {
       }
 
 
-      case CONSTANS.CHANGE_TAG_NAME:
+      case CONSTANS.CHANGE_TAG_NAME: {
          const newState = state
-         newState.tagsMenu.tagsColors.filter(item => item.id === action.payload.id).map(item => item.color = action.payload.color)
+         newState.tagsMenu.tags.filter(item => item.id === action.payload.id).map(item => item.color = action.payload.color)
          state.tagsMenu = { ...newState.tagsMenu }
          return { ...state }
+      }
+
+      case CONSTANS.ADD_TAG: {
+         const { color, name } = action.payload
+         if (color && name) {
+            const newState = state
+            newState.tagsMenu.tags.push({ id: tagsID, color, name })
+            state.tagsMenu = { ...newState.tagsMenu }
+            tagsID++
+            return { ...state }
+         }
+         else {
+            return state
+         }
+
+      }
 
       default:
          return state
