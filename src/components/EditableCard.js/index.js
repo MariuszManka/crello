@@ -46,7 +46,7 @@ const EditableCard = ({ description, action, dispatch }) => {
          />
          :
          <StyledCard onClick={() => setOpen(true)} >
-            <CardContent>
+            <CardContent style={{ padding: '10px' }}>
                {description}
             </CardContent>
          </StyledCard>

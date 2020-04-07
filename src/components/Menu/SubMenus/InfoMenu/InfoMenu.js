@@ -19,6 +19,7 @@ const InfoMenu = ({ infoMenu }) => {
                <ListItemText primary={infoMenu.author} secondary={infoMenu.email} />
                <ListItemText />
             </ListItem>
+            <ListItem /> {/*Placeholder*/}
             <Divider />
             <ListItem  >
                <ListItemIcon><Icon name="description" md={25} /></ListItemIcon>

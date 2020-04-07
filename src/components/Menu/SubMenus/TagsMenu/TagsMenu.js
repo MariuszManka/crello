@@ -1,20 +1,18 @@
 import React, { useState } from 'react'
-import { List, ListItem, Zoom, Tooltip, Popover, ClickAwayListener, Divider } from '@material-ui/core'
+import { List, ListItem, Zoom, Tooltip, TextField, ClickAwayListener, Divider, ListItemText } from '@material-ui/core'
 import Icon from '../../../Icon/Icon'
-import { Tag, } from './StyledTagsMenu'
+import { Tag, StyledColorPicker, StyledWrapper } from './StyledTagsMenu'
 import { connect } from 'react-redux'
-import {
-   SketchPicker
-} from 'react-color'
+
 import { changeTagColor } from '../../../../actions/subMenusActions'
 
 const EditTag = ({ color, handleChangeColor, setOpen, open }) => {
 
    return (
       open ?
-         <ClickAwayListener onClickAway={() => setOpen(false)}>
-            <SketchPicker color={color.color} onChangeComplete={(c) => handleChangeColor(c.hex, color.id)} />
-         </ClickAwayListener>
+
+         <StyledColorPicker style={{ boxShadow: 'none' }} color={color.color} onChangeComplete={(c) => handleChangeColor(c.hex, color.id)} />
+         // </ClickAwayListener>
          :
          null
    )
@@ -51,20 +49,30 @@ const TagsMenu = ({ tagsMenu, dispatch }) => {
                   )
                })
             }
+            <ListItem>
+               <Tag addTag >
+                  <ListItemText>Utwórz nową</ListItemText>
+                  <Icon name="add" md={20} />
+               </Tag>
+
+            </ListItem>
+            <ListItem /> {/*Placeholder*/}
             <Divider />
 
             <ListItem>
                {
                   open &&
-                  <EditTag
-                     color={color}
-                     handleChangeColor={handleChangeColor}
-                     setOpen={setOpen}
-                     open={open} />
-
+                  <ClickAwayListener onClickAway={() => setOpen(false)}>
+                     <StyledWrapper>
+                        <TextField id="outlined-basic" label="Nazwa" variant="outlined" />
+                        <EditTag
+                           color={color}
+                           handleChangeColor={handleChangeColor}
+                           setOpen={setOpen}
+                           open={open} />
+                     </StyledWrapper>
+                  </ClickAwayListener>
                }
-
-
             </ListItem>
          </List>
       </>
