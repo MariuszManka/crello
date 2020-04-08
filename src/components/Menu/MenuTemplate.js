@@ -5,12 +5,25 @@ import { StyledMenuTemplate, MenuHeader, MenuTextCenter, } from './StyledMenu'
 import { connect } from 'react-redux'
 import { setMenuOpen, setIconVisible, menuClose } from '../../actions/menuActions'
 
+/**
+ * Komponent wyświetlający menu lub podmenu w zależności od tego czy currentOption jest pustą tablicą czy nie.
+ * @param {Node} children  - dzieci, ikony menu do wyświetlenia w podstawowym widoku
+ * @param {Function} dispatch  - funkcja używana w react Redux do ustawiania nowego stanu
+ * @param {Object} menu - obiekt menu z głównego magazynu
+ */
+
 const MenuTemplate = ({ children, dispatch, menu }) => {
 
    const { title, open, iconVisible, currentOption } = menu
    const [option] = currentOption
 
    const handleSetMenuOpen = () => {
+      /*Jesli parametr option jest ustawiony, oznacza to że ikona jest renderowana w subMenu. 
+       //w tym przypadku używamy menuClose aby wyjść do podstawowego widoku menu*/
+      if (option) {
+         dispatch(menuClose(true, false))
+         return
+      }
       dispatch(setMenuOpen(true))
       dispatch(setIconVisible(false))
    }
@@ -21,12 +34,16 @@ const MenuTemplate = ({ children, dispatch, menu }) => {
 
    return (
       <StyledMenuTemplate open={open}>
+
          <MenuHeader >
-            <IconButton style={{ position: 'absolute' }} onClick={handleSetMenuOpen}>
-               {
-                  iconVisible ? <Icon name='chevron_left' md={35} /> : undefined
-               }
-            </IconButton>
+            {
+               iconVisible ?
+                  <IconButton style={{ position: 'absolute' }} onClick={handleSetMenuOpen}>
+                     <Icon name='chevron_left' md={35} />
+                  </IconButton>
+                  :
+                  null
+            }
             <MenuTextCenter>
                <p>{title}</p>
             </MenuTextCenter>
@@ -35,11 +52,9 @@ const MenuTemplate = ({ children, dispatch, menu }) => {
             </IconButton>
          </MenuHeader>
          <Divider />
+
          {
-            option ?
-               option.component
-               :
-               children
+            option ? option.component : children
          }
       </StyledMenuTemplate>
    )

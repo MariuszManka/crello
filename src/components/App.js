@@ -8,6 +8,21 @@ import { theme, StyledAppGrid, StyledPageContent, GlobalStyle } from './globalSt
 import Menu from './Menu/Menu'
 import TopBar from './TopBar/TopBar'
 import { Grid } from '@material-ui/core'
+import { createMuiTheme, ThemeProvider as MaterialThemeProvider } from '@material-ui/core/styles'
+
+const materialTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#fcae12',
+    },
+    secondary: {
+      light: '#0066ff',
+      main: '#0044ff',
+      contrastText: '#ffcc00',
+    },
+  },
+})
+
 
 
 const App = ({ lists, dispatch }) => {
@@ -35,11 +50,13 @@ const App = ({ lists, dispatch }) => {
       <DragDropContext onDragEnd={onDragEnd}>
         <GlobalStyle />
         <ThemeProvider theme={theme}>
-          <TopBar />
-          <StyledPageContent>
-            <TrelloList list={lists} />
-            <Menu />
-          </StyledPageContent>
+          <MaterialThemeProvider theme={materialTheme}>
+            <TopBar />
+            <StyledPageContent>
+              <TrelloList list={lists} />
+              <Menu />
+            </StyledPageContent>
+          </MaterialThemeProvider>
         </ThemeProvider>
       </DragDropContext>
     </StyledAppGrid>

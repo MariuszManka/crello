@@ -8,7 +8,7 @@ export const StyledTrelloList = styled.section`
 
 export const StyledListContent = styled.div`
    position: relative;
-   width: 80vw;
+   width: calc(85vw - ${({ theme }) => theme.sizes.menu});
    top: ${({ theme }) => theme.sizes.topbar};
    margin-right: ${({ theme }) => theme.sizes.menu};
 `

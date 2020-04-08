@@ -16,10 +16,10 @@ export const setInfoDescription = (value) => {
  * @param {String} color - nowy kolor listy
  * @param {Number} id - id etykiety
  */
-export const changeTagColor = (color, id) => {
+export const changeTagColor = (color, name, id) => {
    return {
-      type: CONSTANS.CHANGE_TAG_NAME,
-      payload: { color, id }
+      type: CONSTANS.CHANGE_TAG,
+      payload: { color, name, id }
    }
 }
 

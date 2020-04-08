@@ -15,7 +15,7 @@ const initialState = {
       tags: [
          { id: 0, color: '#fe346e', name: 'Ważne', },
          { id: 1, color: '#8e44ad', name: 'Frontend', },
-         { id: 2, color: '#f3c623', name: 'Do zrobienia', },
+         // { id: 2, color: '#f3c623', name: 'Do zrobienia', },
          { id: 3, color: '#3cc900', name: 'Do testów', },
          { id: 4, color: '#323232', name: 'Backend', },
 
@@ -34,10 +34,15 @@ const subMenusReducer = (state = initialState, action) => {
          return { ...state }
       }
 
-
-      case CONSTANS.CHANGE_TAG_NAME: {
+      case CONSTANS.CHANGE_TAG: {
          const newState = state
-         newState.tagsMenu.tags.filter(item => item.id === action.payload.id).map(item => item.color = action.payload.color)
+         const { color, name, id } = action.payload
+         newState.tagsMenu.tags.filter(item => item.id === id).map(item => {
+            if (name.trim() && item.name !== name)
+               item.name = name
+
+            item.color = color
+         })
          state.tagsMenu = { ...newState.tagsMenu }
          return { ...state }
       }

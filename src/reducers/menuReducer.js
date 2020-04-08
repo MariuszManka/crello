@@ -64,6 +64,7 @@ const menuReducer = (state = initialState, action) => {
             newState.currentOption = newState.menuIcons.filter(icon => icon.id === id)
             newState.open = true
             newState.title = title
+            newState.iconVisible = true
             return { ...newState }
          }
 

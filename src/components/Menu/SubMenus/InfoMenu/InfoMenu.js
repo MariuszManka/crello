@@ -27,7 +27,7 @@ const InfoMenu = ({ infoMenu }) => {
             </ListItem>
             <ListItem>
                <ListItemText>
-                  <EditableCard description={infoMenu.description} action={setInfoDescription} />
+                  <EditableCard description={infoMenu.description} action={setInfoDescription} withButtons />
                </ListItemText>
             </ListItem>
          </List>

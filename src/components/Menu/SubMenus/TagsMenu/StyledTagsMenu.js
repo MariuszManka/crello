@@ -27,7 +27,7 @@ export const Tag = styled.div`
 `
 
 export const StyledColorPicker = styled(ChromePicker)`
-   margin: 0 auto !important;
+   margin: 25px  auto 0 auto !important;
 
    ${({ theme, error }) => error && `
       border: 1px solid ${theme.colors.error};
@@ -49,5 +49,11 @@ width: 100% !important;
 `
 
 export const StyledButton = styled(Button)`
-   font-size: 16px !important;
+   font-size: 15px !important;
+`
+export const ButtonWrapper = styled.div`
+   display:flex;
+   justify-content:space-between;
+   margin: 20px 0 15px 0;
+
 `

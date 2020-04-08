@@ -4,7 +4,7 @@ import { Card, CardContent, } from '@material-ui/core'
 import { connect } from 'react-redux'
 
 
-const EditableTextArea = ({ description, setOpen, action, dispatch }) => {
+export const EditableTextArea = ({ description, setOpen, action, dispatch, withButtons, }) => {
 
    const [value, setValue] = useState(description)
 
@@ -21,28 +21,32 @@ const EditableTextArea = ({ description, setOpen, action, dispatch }) => {
             onInput={(e) => setValue(e.target.value)}
             cardheight={50}
             onBlur={() => setOpen(false)}
-         />
 
-         <ButtonWrapper>
-            <StyledButton onMouseDown={() => handleSave()}>Zapisz</StyledButton>
-            <StyledButton>Cofnij</StyledButton>
-         </ButtonWrapper>
+         />
+         {
+            withButtons &&
+            <ButtonWrapper>
+               <StyledButton onMouseDown={() => handleSave()}>Zapisz</StyledButton>
+               <StyledButton>Cofnij</StyledButton>
+            </ButtonWrapper>
+         }
+
       </>
    )
 }
 
-const EditableCard = ({ description, action, dispatch }) => {
+const EditableCard = ({ description, action, dispatch, withButtons, }) => {
    const [open, setOpen] = useState(false)
 
    return (
       open ?
-
          <EditableTextArea
             description={description}
             setOpen={setOpen}
             open={open}
             action={action}
             dispatch={dispatch}
+            withButtons={withButtons}
          />
          :
          <StyledCard onClick={() => setOpen(true)} >
