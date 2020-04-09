@@ -7,17 +7,14 @@ import { changeTagColor } from '../../../../actions/subMenusActions'
 import CreateTag from './CreateTag'
 
 const EditTag = ({ props, handleChangeColor, setState }) => {
-
    const { color, id, openAll, openPicker, name } = props
-
-   const [currentColor, setColor] = useState(color)
 
    const handleChange = (value) => {
       setState({ name: value })
    }
 
    const handleSubmit = () => {
-      handleChangeColor(currentColor, name, id)
+      handleChangeColor(color, name, id)
       setState({ open: false })
    }
 
@@ -28,6 +25,8 @@ const EditTag = ({ props, handleChangeColor, setState }) => {
                {openAll && <StyledTextField
                   id="outlined-basic"
                   label="Nazwa"
+                  placeholder={name}
+                  autoFocus
                   style={{ marginTop: '8px', padding: 0 }}
                   onChange={(e) => handleChange(e.target.value)}
                   onKeyDown={(e) => {
@@ -35,7 +34,7 @@ const EditTag = ({ props, handleChangeColor, setState }) => {
                         handleSubmit()
                   }}
                />} {/**Komponent nie jest wyświetlany dopóki użytkownik nie kliknie w "ikonkę" */}
-               <StyledColorPicker color={currentColor} onChangeComplete={(c) => setColor(c.hex)} />
+               <StyledColorPicker color={color} onChangeComplete={(c) => setState({ color: c.hex })} />
                <ButtonWrapper>
                   <Button onClick={() => handleSubmit()}>Zapisz</Button> {/**Komponent nie jest wyświetlany dopóki użytkownik nie kliknie w "ikonkę" */}
                   <Button onClick={() => setState({ open: false, openAll: false, openPicker: false })} >Anuluj</Button>
@@ -68,6 +67,13 @@ const TagsMenu = ({ tagsMenu, dispatch }) => {
       dispatch(changeTagColor(color, name, id))
    }
 
+   const handleIconClick = (color, id, name) => {
+      setState({ color, id, name, openAll: true, open: true, })
+   }
+   const handleTagClick = (color, id, name) => {
+      setState({ color, id, name, openPicker: true, openAll: false, open: true, })
+   }
+
    return (
       <>
          <List>
@@ -76,9 +82,9 @@ const TagsMenu = ({ tagsMenu, dispatch }) => {
                   return (
                      <ListItem key={item.id} >
                         <Tooltip title={<p style={{ fontSize: '12px', }}>{item.name}</p>} TransitionComponent={Zoom} arrow>
-                           <Tag background={item.color} onClick={() => setState({ color: item.color, id: item.id, openPicker: true, openAll: false, open: true })} />
+                           <Tag background={item.color} onClick={() => handleTagClick(item.color, item.id, item.name)} />
                         </Tooltip>
-                        <Icon name="create" md={18} onClick={() => setState({ color: item.color, id: item.id, openAll: true, open: true })} />
+                        <Icon name="create" md={18} onClick={() => handleIconClick(item.color, item.id, item.name)} />
                      </ListItem>
                   )
                })
@@ -95,6 +101,7 @@ const TagsMenu = ({ tagsMenu, dispatch }) => {
             <Divider />
             <ListItem>
                {
+
                   open &&
                   <EditTag
                      props={{ color, id, openAll, openPicker, name }}
