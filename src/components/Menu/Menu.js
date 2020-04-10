@@ -7,6 +7,13 @@ import { connect } from 'react-redux'
 import { menuOptionClick } from '../../actions/menuActions'
 
 
+/**
+ * Komponent Wyświetlający główne menu z ikonami, oraz sterujący wyświetlaniem poszczególnych widoków podmenu
+ * @param {Object} icons - objekt ikon z globalnego Stora (Tablica ze wszystkimi ikonami, nazwami oraz komponentami wyświetlanymi przy każdym z podmenu)
+ * @param {Function} dispatch - funkcja dispatch z Reduxa 
+ * 
+ * */
+
 function Menu({ icons, dispatch }) {
 
    const handleOptionClick = (id, title) => {

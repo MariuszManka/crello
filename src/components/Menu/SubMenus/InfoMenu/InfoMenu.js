@@ -5,7 +5,14 @@ import EditableCard from '../../../EditableCard.js/index.js'
 import { connect } from 'react-redux'
 import { setInfoDescription } from '../../../../actions/subMenusActions'
 
+/**
+ * 
+ * @param {Object} infoMenu  - Obiekt infoMenu z głównego Stora, zawiera najpotrzebniejsze informacje dla danej sekcji. Znajduje się w pliku reducer/SubMenusReducer.js
+ */
+
 const InfoMenu = ({ infoMenu }) => {
+
+   const { avatarImage, avatarLetters, email, author, description } = infoMenu
 
    return (
       <>
@@ -15,8 +22,8 @@ const InfoMenu = ({ infoMenu }) => {
                <ListItemText primary="Wykonane przez:" />
             </ListItem>
             <ListItem >
-               <ListItemIcon><Avatar src={infoMenu.avatarImage}>{infoMenu.avatarLetters}</Avatar></ListItemIcon>
-               <ListItemText primary={infoMenu.author} secondary={infoMenu.email} />
+               <ListItemIcon><Avatar src={avatarImage}>{avatarLetters}</Avatar></ListItemIcon>{/**Gdy avatarImage jest równy null, w avatarze wyświetlają się literki podnae we właściwości avatarLetters */}
+               <ListItemText primary={author} secondary={email} />
                <ListItemText />
             </ListItem>
             <ListItem /> {/*Placeholder*/}
@@ -27,7 +34,7 @@ const InfoMenu = ({ infoMenu }) => {
             </ListItem>
             <ListItem>
                <ListItemText>
-                  <EditableCard description={infoMenu.description} action={setInfoDescription} withButtons />
+                  <EditableCard description={description} action={setInfoDescription} withButtons />
                </ListItemText>
             </ListItem>
          </List>

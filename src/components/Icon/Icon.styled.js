@@ -22,5 +22,10 @@ ${({ theme, outlined }) => outlined && `
    }
 `};
 
-
+${({ theme, search }) => search && `
+   background-color: ${theme.colors.primary};
+   padding: 7px;
+   border-radius: 50%;
+   color:white !important;
+`};
 `

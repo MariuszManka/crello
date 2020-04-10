@@ -1,6 +1,6 @@
 import { CONSTANS } from '../actions'
 import React from 'react'
-import { InfoMenu, ChangePictureMenu, FindCardsMenu, TagsMenu, PinnedMenu, ArchiweMenu, SettingsMenu } from '../components/Menu/SubMenus'
+import { InfoMenu, ChangePictureMenu, FindCardsMenu, TagsMenu, PinnedMenu, ArchiveMenu, SettingsMenu } from '../components/Menu/SubMenus'
 
 const initialState = {
    title: 'Menu',
@@ -12,7 +12,7 @@ const initialState = {
       { id: 2, icon: 'search', description: 'Szukaj kart', component: <FindCardsMenu /> },
       { id: 3, icon: 'local_offer', description: 'Etykiety', component: <TagsMenu /> },
       { id: 4, icon: 'attach_file', description: 'Przypięte', component: <PinnedMenu /> },
-      { id: 5, icon: 'archive', description: 'Archiwum', component: <ArchiweMenu /> },
+      { id: 5, icon: 'archive', description: 'Archiwum', component: <ArchiveMenu /> },
       { id: 6, icon: 'settings', description: 'Ustawienia', component: <SettingsMenu /> },
    ],
    currentOption: [],

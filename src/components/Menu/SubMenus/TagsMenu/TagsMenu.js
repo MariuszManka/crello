@@ -1,55 +1,22 @@
 import React, { useState, useReducer } from 'react'
-import { List, ListItem, Zoom, Tooltip, TextField, ClickAwayListener, Divider, ListItemText, Button, } from '@material-ui/core'
+import { List, ListItem, Zoom, Tooltip, Divider, ListItemText, } from '@material-ui/core'
 import Icon from '../../../Icon/Icon'
-import { Tag, StyledColorPicker, StyledWrapper, StyledTextField, ButtonWrapper } from './StyledTagsMenu'
+import { Tag, } from './StyledTagsMenu'
 import { connect } from 'react-redux'
 import { changeTagColor } from '../../../../actions/subMenusActions'
 import CreateTag from './CreateTag'
+import EditTag from './EditTag'
 
-const EditTag = ({ props, handleChangeColor, setState }) => {
-   const { color, id, openAll, openPicker, name } = props
-
-   const handleChange = (value) => {
-      setState({ name: value })
-   }
-
-   const handleSubmit = () => {
-      handleChangeColor(color, name, id)
-      setState({ open: false })
-   }
-
-   return (
-      openAll || openPicker ?
-         <>
-            <StyledWrapper>
-               {openAll && <StyledTextField
-                  id="outlined-basic"
-                  label="Nazwa"
-                  placeholder={name}
-                  autoFocus
-                  style={{ marginTop: '8px', padding: 0 }}
-                  onChange={(e) => handleChange(e.target.value)}
-                  onKeyDown={(e) => {
-                     if (e.key === 'Enter')
-                        handleSubmit()
-                  }}
-               />} {/**Komponent nie jest wyświetlany dopóki użytkownik nie kliknie w "ikonkę" */}
-               <StyledColorPicker color={color} onChangeComplete={(c) => setState({ color: c.hex })} />
-               <ButtonWrapper>
-                  <Button onClick={() => handleSubmit()}>Zapisz</Button> {/**Komponent nie jest wyświetlany dopóki użytkownik nie kliknie w "ikonkę" */}
-                  <Button onClick={() => setState({ open: false, openAll: false, openPicker: false })} >Anuluj</Button>
-               </ButtonWrapper>
-            </StyledWrapper>
-         </>
-         :
-         null
-   )
-}
+/**
+ * 
+ * @param {Object} tagsMenu - objekt tagsMenu ze Stora. Zawiera najważniejsze informacje takie jak id, nazwa czy też kolor danej etykiety
+ * @param {Function} dispatch - Funkcja dispatch z Reduxa
+ */
 
 const TagsMenu = ({ tagsMenu, dispatch }) => {
    const { tags } = tagsMenu
 
-   const [openModal, setOpenModal] = useState(false)
+   const [openModal, setOpenModal] = useState(false) //Używane do otwierania modala pozwalającego na dodawanie nowych etykiet
 
    const [state, setState] = useReducer((state, newState) => ({ ...state, ...newState }), {
       color: '#fff',
@@ -68,10 +35,10 @@ const TagsMenu = ({ tagsMenu, dispatch }) => {
    }
 
    const handleIconClick = (color, id, name) => {
-      setState({ color, id, name, openAll: true, open: true, })
+      setState({ color, id, name, openAll: true, open: true, }) //Otwiera menu do edycji Etykiety po kliknięciu w Ikonę edycji
    }
    const handleTagClick = (color, id, name) => {
-      setState({ color, id, name, openPicker: true, openAll: false, open: true, })
+      setState({ color, id, name, openPicker: true, openAll: false, open: true, })//Otwiera menu do edycji Etykiety po kliknięciu w Etykietę
    }
 
    return (

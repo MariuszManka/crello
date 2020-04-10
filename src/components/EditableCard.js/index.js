@@ -3,7 +3,14 @@ import { StyledTextArea, StyledButton, ButtonWrapper, StyledCard } from './Style
 import { Card, CardContent, } from '@material-ui/core'
 import { connect } from 'react-redux'
 
-
+/**
+ * Komponent pozwalający na edycję tekstu inline (Wyświetla albo tekst albo miejsce do jego edycji )
+ * @param {String} description - tekst wyświetlany w karcie
+ * @param {Function} setOpen - funkcja sterująca zamknięciem komponentu
+ * @param {Function} action - akcja Która ma zostać wykonana podczas zapisu (Akcja z Reduxa)
+ * @param {Function} dispatch - funkcja dispatch z Reduxa
+ * @param {Bool} withButtons - zmienna sterująca wyświetlaniem się bądź nie przycisków "Zapisz" oraz "Cofnij"
+ */
 export const EditableTextArea = ({ description, setOpen, action, dispatch, withButtons, }) => {
 
    const [value, setValue] = useState(description)

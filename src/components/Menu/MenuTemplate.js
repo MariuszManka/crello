@@ -15,7 +15,7 @@ import { setMenuOpen, setIconVisible, menuClose } from '../../actions/menuAction
 const MenuTemplate = ({ children, dispatch, menu }) => {
 
    const { title, open, iconVisible, currentOption } = menu
-   const [option] = currentOption
+   const [option] = currentOption //Tablica z aktualnie wybraną opcją lub undefined
 
    const handleSetMenuOpen = () => {
       /*Jesli parametr option jest ustawiony, oznacza to że ikona jest renderowana w subMenu. 
@@ -54,7 +54,7 @@ const MenuTemplate = ({ children, dispatch, menu }) => {
          <Divider />
 
          {
-            option ? option.component : children
+            option ? option.component : children //option.component - komponent podmenu z tablicy currentOption ze stora, children standardowe menu z ikonami
          }
       </StyledMenuTemplate>
    )

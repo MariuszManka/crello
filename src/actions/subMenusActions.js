@@ -1,7 +1,7 @@
 import { CONSTANS } from '../actions'
 
 /**
- * 
+ * Funkcja ustawiająca opis tablicy
  * @param {String} value -ustawienie opisu listy, wykorzystywane w sub menu InfoMenu
  */
 export const setInfoDescription = (value) => {

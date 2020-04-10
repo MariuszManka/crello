@@ -2,7 +2,11 @@ import React from 'react'
 import { List, ListItem, ListItemText, ListItemIcon, ListItemAvatar, Avatar, Divider } from '@material-ui/core'
 import Icon from '../../../Icon/Icon'
 
-export const ArchiweMenu = () => {
+/**
+ * Komponent wyświetlajacy archiwum, tutaj trafiaja usunięte karty
+ */
+
+export const ArchiveMenu = () => {
 
    return (
       <>

@@ -13,13 +13,20 @@ const ListHeading = ({ title, dispatch }) => {
          value: title
       })
 
-   const handleEnterPress = (e) => {
-      if (e.key === 'Enter' && value.trim()) {
-         dispatch(changeListTitle(title, value))
-         setState({ open: false })
+   const handleSave = () => {
+      if (value.trim()) {
+         if (value.trim() === title) {
+            setState({ open: false })
+            return
+         }
+         else {
+            dispatch(changeListTitle(title, value))
+            setState({ open: false })
+         }
       }
       return
    }
+
 
    const { open, value } = state
    return (
@@ -32,8 +39,12 @@ const ListHeading = ({ title, dispatch }) => {
                   autoFocus
                   style={{ margin: '5px 10px 10px 0', padding: '5px 10px' }}
                   onChange={(e) => setState({ value: e.target.value })}
-                  onBlur={() => setState({ open: false, value: title })}
-                  onKeyDown={(e) => handleEnterPress(e)}
+                  onBlur={(e) => handleSave()}
+                  onKeyDown={(e) => {
+                     if (e.key === 'Enter')
+                        handleSave()
+                  }}
+
                />
                :
                <Heading onClick={() => setState({ open: true })}>
