@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useReducer } from 'react'
 import Toolbar from '@material-ui/core/Toolbar'
 import Icon from '../../../Icon/Icon'
 import { SearchWrapper, StyledTextField, } from './StyledFindCards'
 import { connect } from 'react-redux'
 import { useState } from 'react'
-import { ListItem, CardContent, Card, Typography, CardHeader } from '@material-ui/core'
+import { ListItem, CardContent, Card, Typography, Divider } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
@@ -13,21 +13,34 @@ const useStyles = makeStyles({
    },
 })
 
+export const Search = ({ handleChange, placeholder }) => {
+   return (
+      <Toolbar>
+         <SearchWrapper>
+            <StyledTextField
+               autoFocus
+               placeholder={placeholder}
+               onChange={(e) => {
+                  handleChange(e.target.value)
+               }}
+            />
+            <Icon name="search" search />
+         </SearchWrapper>
+      </Toolbar>
+   )
+}
 
-function FindCardsMenu({ cards, lists }) {
 
-
+function FindCardsMenu({ cards }) {
    const classes = useStyles()
 
    const [findedCards, setFindedCards] = useState([])
 
    const handleOnInput = (value) => {
-
-      console.log(lists.map(list => console.log(list)))
       const allCards = []
 
       cards.map(item => item.map(i => {
-         allCards.push(i.text)
+         allCards.push(i.title)
       }))
 
       setFindedCards(allCards.filter(card => card.toLowerCase().includes(value.toLowerCase())))
@@ -35,29 +48,20 @@ function FindCardsMenu({ cards, lists }) {
 
    return (
       <div >
-         <Toolbar>
-            <SearchWrapper>
-               <StyledTextField
-                  placeholder="Search"
-                  onChange={(e) => {
-                     handleOnInput(e.target.value)
-                  }}
-               />
-               <Icon name="search" search />
-            </SearchWrapper>
-         </Toolbar>
+         <Search handleChange={handleOnInput} placeholder="Szukaj" />
+         <Divider />
+         <ListItem /> {/*Placeholder*/}
          {
             findedCards.map((card, index) => {
                return (
                   <ListItem key={index}>
-                     <Typography className={classes.title}>
-                        {/* <CardHeader title="Tytuł"></CardHeader> */}
-                        <Card>
-                           <CardContent>
+                     <Card>
+                        <CardContent>
+                           <Typography className={classes.title}>
                               {card}
-                           </CardContent>
-                        </Card>
-                     </Typography>
+                           </Typography>
+                        </CardContent>
+                     </Card>
                   </ListItem>
                )
             })
@@ -68,7 +72,6 @@ function FindCardsMenu({ cards, lists }) {
 
 const mapStateToProps = state => ({
    cards: state.lists.map(list => list.cards),
-   lists: state.lists
 })
 
 export default connect(mapStateToProps)(FindCardsMenu) 

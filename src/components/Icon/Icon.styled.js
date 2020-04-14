@@ -27,5 +27,6 @@ ${({ theme, search }) => search && `
    padding: 7px;
    border-radius: 50%;
    color:white !important;
+   cursor: default;
 `};
 `

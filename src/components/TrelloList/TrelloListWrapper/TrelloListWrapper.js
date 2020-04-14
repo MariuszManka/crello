@@ -7,8 +7,7 @@ import ActionButton from '../TrelloActionButton'
 import { connect } from 'react-redux'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 
-const TrelloList = ({ lists }) => {
-
+const TrelloList = ({ lists, }) => {
    return (
       lists.map((list, index) => {
          return (
@@ -31,10 +30,10 @@ const TrelloList = ({ lists }) => {
                                  list.cards.map((card, index) =>
                                     <ListCard
                                        key={card.id}
-                                       text={card.text}
-                                       id={card.id}
+                                       card={card}
                                        index={index}
                                     />
+
                                  )
                               }
                               {provided.placeholder}
@@ -54,7 +53,8 @@ const TrelloList = ({ lists }) => {
 }
 
 const mapStateToProps = state => ({
-   lists: state.lists
+   lists: state.lists,
+
 })
 
 export default connect(mapStateToProps)(TrelloList) 

@@ -9,6 +9,8 @@ export const theme = {
       topbarOverlay: 'rgba(53, 59, 72, 0.6)',
       menuIcon: '#353b48',
       error: '#F9094C',
+      cardContent: 'rgba(9,30,66,.10)',
+      cardContentHover: 'rgba(9,30,66,.15)'
    },
    fonts: {
       primary: `'Roboto', sans-serif`,

@@ -10,11 +10,15 @@ const initialState = [
       cards: [
          {
             id: `card-${0}`,
-            text: "Sprawdzić błędy na gitlabie",
+            title: "Sprawdzić błędy na gitlabie",
+            description: 'uis aliquet eros eu lacus fermentum rhoncus nec id sem. Sed id cursus lacus. Vivamus non orci at sapien aliquet rutrum vel a odio. Suspendisse eget lectus eu ligula maximus elementum. Nunc ac sagittis urna, a pulvinar dui.',
+            tag: 'Backend'
          },
          {
             id: `card-${1}`,
-            text: 'Zrobić poprawki szaty graficznej'
+            title: 'Zrobić poprawki szaty graficznej',
+            description: 'Praesent ornare lacinia dolor nec luctus',
+            tag: 'Frontend'
          }
       ]
    },
@@ -24,11 +28,15 @@ const initialState = [
       cards: [
          {
             id: `card-${2}`,
-            text: "Stworzyć implementację Trello",
+            title: "Stworzyć implementację Trello",
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla arcu vel libero semper, a malesuada justo sollicitudin. Donec tincidunt sapien ligula',
+            tag: 'Do testów'
          },
          {
             id: `card-${3}`,
-            text: 'Przepracować tutorial na Youtube'
+            title: 'Przepracować tutorial na Youtube',
+            description: ' Morbi ultricies lectus sit amet velit mattis, ac egestas purus tempor. Aenean tempor blandit orci laoreet vulputate. Sed consequat fermentum tortor, id molestie erat convallis ut.',
+            tag: 'Ważne'
          }
       ]
    },
