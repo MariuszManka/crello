@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useReducer } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Menu, ListItem, ListItemIcon, Tooltip, TextField, Typography, Divider } from '@material-ui/core'
 import Icon from '../../../Icon/Icon'
 import { connect } from 'react-redux'
-import { Tag, TagsWrapper, StyledHeading } from './StyledActions'
+import { Tag, TagsWrapper, StyledHeading, StyledIcon } from './StyledActions'
 import { Search } from '../../../Menu/SubMenus/FindCardsMenu/FindCardsMenu'
+import { setPriorityTag } from '../../../../actions'
 
 
 const StyledMenu = withStyles({
@@ -30,23 +31,32 @@ const StyledMenu = withStyles({
 ))
 
 
-const TagActions = ({ tagMenu }) => {
-   const [allTags, setTag] = useState(tagMenu.tags)
+const TagActions = ({ cardID, tagMenu, dispatch }) => {
 
-   console.log(allTags)
 
-   const [anchorEl, setAnchorEl] = useState(null)
+   const [state, setState] = useReducer((state, newState) => ({ ...state, ...newState }), {
+      allTags: tagMenu.tags,
+      color: false,
+      anchorEl: null
+   })
+   const { allTags, anchorEl, color } = state
+
+   const handleSetPriority = (name) => {
+      dispatch(setPriorityTag(name, cardID))
+      setState({ color: true, })
+
+   }
 
    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget)
+      setState({ anchorEl: event.currentTarget })
    }
 
    const handleClose = () => {
-      setAnchorEl(null)
+      setState({ anchorEl: null })
    }
 
    const handleOnChange = (value) => {
-      setTag(tagMenu.tags.filter(tag => tag.name.toLowerCase().includes(value.toLowerCase())))
+      setState({ allTags: tagMenu.tags.filter(tag => tag.name.toLowerCase().includes(value.toLowerCase())) })
    }
 
    return (
@@ -80,9 +90,9 @@ const TagActions = ({ tagMenu }) => {
                         <Tooltip title={<p style={{ fontSize: 12 }}>{item.name}</p>} arrow>
                            <Tag color={item.color} />
                         </Tooltip>
-                        <Icon name="bookmark" md={20} color="cardContent" />
+                        <Icon name="bookmark" md={20} color="cardContentHover" />
                         <Tooltip title={<p style={{ fontSize: 12 }}>Priorytet</p>} arrow>
-                           <Icon name="priority_high" color="cardContentHover" />
+                           <StyledIcon name="priority_high" color={color ? 'primary' : 'cardContent'} onClick={() => handleSetPriority(item.name)} />
                         </Tooltip>
                      </TagsWrapper>
 

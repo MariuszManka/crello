@@ -66,7 +66,7 @@ const CardPreview = ({ card, open, setOpen }) => {
                   </div>
                </StyledContent>
                <Menu >
-                  <TagActions />
+                  <TagActions cardID={id} />
                   <ListItem button className={classes.title} >
                      <ListItemIcon><Icon name="person" md={20} /></ListItemIcon>
                      <p style={{ fontSize: '13px' }}>Członkowie</p>

@@ -11,3 +11,9 @@ export const addCard = (listID, text) => {
       payload: { listID, text }
    }
 }
+export const setPriorityTag = (name, cardID) => {
+   return {
+      type: CONSTANS.SET_PRIORIT_TAG,
+      payload: { name, cardID }
+   }
+}

@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 })
 
 export const ListCard = ({ card, index }) => {
-   const { title, id, description, tag } = card
+   const { title, id, description, tag, priorityTag } = card
 
    const classes = useStyles()
    const [open, setOpen] = useState(false)
@@ -28,11 +28,8 @@ export const ListCard = ({ card, index }) => {
                      {...provided.draggableProps}
                      {...provided.dragHandleProps}
                   >
-
                      <StyledCard onClick={() => setOpen(true)}>
-                        <Bookmark tag={tag} />
-                        {/* <CardHeader> */}
-                        {/* </CardHeader> */}
+                        <Bookmark tag={priorityTag} />
                         <CardContent>
                            <Typography className={classes.title} color="textSecondary" variant="subtitle1" gutterBottom >
                               {title}

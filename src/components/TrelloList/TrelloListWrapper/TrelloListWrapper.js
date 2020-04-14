@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 
 const TrelloList = ({ lists, }) => {
+
    return (
       lists.map((list, index) => {
          return (

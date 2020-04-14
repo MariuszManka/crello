@@ -20,7 +20,7 @@ export const StyledBookmark = styled.div`
    right:0;
 	width: 0;
 	height: 0;
-	border-top: 40px solid ${({ color }) => color};
+	border-top: 40px solid ${({ color }) => color ? color : 'transparent'};
 	border-left:40px solid transparent;
 `
 

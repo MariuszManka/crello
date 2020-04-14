@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Icon from '../../../Icon/Icon'
 
 export const Tag = styled.div`
    height:25px;
@@ -31,4 +32,8 @@ export const StyledHeading = styled.div`
    padding-bottom: 10px;
    text-align:left;
    border-bottom: 1px solid ${({ theme }) => theme.colors.cardContentHover};
+`
+
+export const StyledIcon = styled(Icon)`
+ color: ${({ color }) => color}
 `

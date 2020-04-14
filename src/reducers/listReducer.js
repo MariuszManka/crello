@@ -12,13 +12,15 @@ const initialState = [
             id: `card-${0}`,
             title: "Sprawdzić błędy na gitlabie",
             description: 'uis aliquet eros eu lacus fermentum rhoncus nec id sem. Sed id cursus lacus. Vivamus non orci at sapien aliquet rutrum vel a odio. Suspendisse eget lectus eu ligula maximus elementum. Nunc ac sagittis urna, a pulvinar dui.',
-            tag: 'Backend'
+            priorityTag: '',
+            tag: []
          },
          {
             id: `card-${1}`,
             title: 'Zrobić poprawki szaty graficznej',
             description: 'Praesent ornare lacinia dolor nec luctus',
-            tag: 'Frontend'
+            priorityTag: '',
+            tag: []
          }
       ]
    },
@@ -30,13 +32,15 @@ const initialState = [
             id: `card-${2}`,
             title: "Stworzyć implementację Trello",
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla arcu vel libero semper, a malesuada justo sollicitudin. Donec tincidunt sapien ligula',
-            tag: 'Do testów'
+            priorityTag: '',
+            tag: []
          },
          {
             id: `card-${3}`,
             title: 'Przepracować tutorial na Youtube',
             description: ' Morbi ultricies lectus sit amet velit mattis, ac egestas purus tempor. Aenean tempor blandit orci laoreet vulputate. Sed consequat fermentum tortor, id molestie erat convallis ut.',
-            tag: 'Ważne'
+            priorityTag: '',
+            tag: []
          }
       ]
    },
@@ -125,6 +129,15 @@ const listsReducer = (state = initialState, action) => {
          return newState
       }
 
+      case CONSTANS.SET_PRIORIT_TAG: {
+         const { name, cardID } = action.payload
+
+         const newState = state
+         newState.map(item => item.cards.filter(card => card.id === cardID).map(c => c.priorityTag = name))
+
+         return [...newState]
+
+      }
       default:
          return state
    }
