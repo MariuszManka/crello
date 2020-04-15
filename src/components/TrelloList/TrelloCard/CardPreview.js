@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 
 
 const CardPreview = ({ card, open, setOpen }) => {
-   const { title, description, id } = card
+   const { title, description, id, priorityTag } = card
    const classes = useStyles()
 
    return (
@@ -32,6 +32,12 @@ const CardPreview = ({ card, open, setOpen }) => {
                      {title}
                   </Typography>
                </DialogTitle>
+               <Icon
+                  name="close"
+                  md={28}
+                  style={{ gridArea: 'menuIcon', alignSelf: 'start', justifySelf: 'end', padding: '13px ' }}
+                  onClick={() => setOpen(false)}
+               />
                <Divider style={{ gridArea: 'divider' }} />
                <StyledContent description>
                   <Icon name="library_books" color="primary" />
@@ -66,7 +72,7 @@ const CardPreview = ({ card, open, setOpen }) => {
                   </div>
                </StyledContent>
                <Menu >
-                  <TagActions cardID={id} />
+                  <TagActions cardID={id} priorityTag={priorityTag} />
                   <ListItem button className={classes.title} >
                      <ListItemIcon><Icon name="person" md={20} /></ListItemIcon>
                      <p style={{ fontSize: '13px' }}>Członkowie</p>

@@ -1,50 +1,32 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useState } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Menu, ListItem, ListItemIcon, Tooltip, TextField, Typography, Divider } from '@material-ui/core'
 import Icon from '../../../Icon/Icon'
 import { connect } from 'react-redux'
-import { Tag, TagsWrapper, StyledHeading, StyledIcon } from './StyledActions'
+import { Tag, TagsWrapper, StyledHeading, CloseIcon, StyledMenu } from './StyledActions'
 import { Search } from '../../../Menu/SubMenus/FindCardsMenu/FindCardsMenu'
 import { setPriorityTag } from '../../../../actions'
 
 
-const StyledMenu = withStyles({
-   paper: {
-      border: '1px solid #d3d4d5',
-      fontSize: 20,
-      padding: '7px 15px'
-   },
-})((props) => (
-   <Menu
-      elevation={0}
-      getContentAnchorEl={null}
-      anchorOrigin={{
-         vertical: 'bottom',
-         horizontal: 'center',
-      }}
-      transformOrigin={{
-         vertical: 'top',
-         horizontal: 'center',
-      }}
-      {...props}
-   />
-))
+const TagActions = ({ cardID, tagMenu, priorityTag, dispatch }) => {
 
-
-const TagActions = ({ cardID, tagMenu, dispatch }) => {
-
+   const [currentTag] = [...tagMenu.tags.filter(tag => tag.name === priorityTag)]
 
    const [state, setState] = useReducer((state, newState) => ({ ...state, ...newState }), {
       allTags: tagMenu.tags,
-      color: false,
+      chosenTag: currentTag && currentTag.id,
       anchorEl: null
    })
-   const { allTags, anchorEl, color } = state
+   const { allTags, anchorEl, chosenTag } = state
 
-   const handleSetPriority = (name) => {
+   const handleSetPriority = (name, id) => {
       dispatch(setPriorityTag(name, cardID))
-      setState({ color: true, })
 
+      tagMenu.tags.map(tag => tag.id)
+         .forEach(i => {
+            if (i === id)
+               setState({ chosenTag: id })
+         })
    }
 
    const handleClick = (event) => {
@@ -68,15 +50,23 @@ const TagActions = ({ cardID, tagMenu, dispatch }) => {
          </ListItem>
 
          <StyledMenu
-            id="customized-menu"
             anchorEl={anchorEl}
             keepMounted
             open={Boolean(anchorEl)}
             onClose={handleClose}
+            getContentAnchorEl={null}
+            anchorOrigin={{
+               vertical: 'bottom',
+               horizontal: 'center',
+            }}
+            transformOrigin={{
+               vertical: 'top',
+               horizontal: 'center',
+            }}
          >
-            {/* <StyledHeading>
-               Etykiety
-           </StyledHeading> */}
+            <CloseIcon>
+               <Icon name="close" onClick={() => handleClose()} />
+            </CloseIcon>
 
             <Search handleChange={handleOnChange} placeholder="Szukaj etykiet" />
             <StyledHeading >
@@ -86,16 +76,19 @@ const TagActions = ({ cardID, tagMenu, dispatch }) => {
             {
                allTags.map(item => {
                   return (
-                     <TagsWrapper>
+                     <TagsWrapper key={item.id}>
                         <Tooltip title={<p style={{ fontSize: 12 }}>{item.name}</p>} arrow>
                            <Tag color={item.color} />
                         </Tooltip>
-                        <Icon name="bookmark" md={20} color="cardContentHover" />
+                        <Icon name="bookmark" md={25} color="cardContentHover" />
                         <Tooltip title={<p style={{ fontSize: 12 }}>Priorytet</p>} arrow>
-                           <StyledIcon name="priority_high" color={color ? 'primary' : 'cardContent'} onClick={() => handleSetPriority(item.name)} />
+                           <Icon
+                              md={25}
+                              name="priority_high"
+                              color={chosenTag === item.id ? 'primary' : 'cardContent'}
+                              onClick={() => handleSetPriority(item.name, item.id)} />
                         </Tooltip>
                      </TagsWrapper>
-
                   )
                })
             }
