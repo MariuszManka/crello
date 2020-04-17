@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createContext } from 'react'
 import {
    TrelloListWrapper
 } from './StyledListWrapper'
@@ -7,7 +7,11 @@ import ActionButton from '../TrelloActionButton'
 import { connect } from 'react-redux'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 
-const TrelloList = ({ lists, }) => {
+export const CardGlobalContext = createContext(null)
+
+
+
+const TrelloList = ({ lists, tags }) => {
 
    return (
       lists.map((list, index) => {
@@ -18,7 +22,6 @@ const TrelloList = ({ lists, }) => {
                      {...provided.draggableProps}
                      {...provided.dragHandleProps}
                      ref={provided.innerRef}
-
                   >
                      <Droppable droppableId={String(list.id)}>
                         {(provided) => (
@@ -29,31 +32,31 @@ const TrelloList = ({ lists, }) => {
                               <ListHeading key={list.id} title={list.title} />
                               {
                                  list.cards.map((card, index) =>
-                                    <ListCard
-                                       key={card.id}
-                                       card={card}
-                                       index={index}
-                                    />
-
-                                 )
-                              }
+                                    <CardGlobalContext.Provider
+                                       value={{
+                                          card,
+                                          tags
+                                       }}>
+                                       <ListCard
+                                          key={card.id}
+                                          index={index}
+                                       />
+                                    </CardGlobalContext.Provider>
+                                 )}
                               {provided.placeholder}
                               <ActionButton id={list.id} />
                            </div>
-                        )
-                        }
+                        )}
                      </Droppable>
                   </TrelloListWrapper>
-               )
-               }
-
+               )}
             </Draggable>
          )
-      })
-   )
+      }))
 }
 
 const mapStateToProps = state => ({
+   tags: state.subMenu.tagsMenu.tags,
    lists: state.lists,
 
 })

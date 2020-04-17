@@ -8,14 +8,12 @@ const Bookmark = ({ tagMenu, tag }) => {
 
    const [tagColor] = [...tagMenu.tags.filter(item => item.name === tag)]
 
-
    return (
       <Tooltip title={<p style={{ fontSize: '12px', }}>{tag}</p>} arrow>
          <StyledBookmark color={tagColor && tagColor.color} />
       </Tooltip>
    )
 }
-
 
 const mapStateToProps = state => ({
    tagMenu: state.subMenu.tagsMenu

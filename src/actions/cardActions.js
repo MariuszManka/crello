@@ -17,3 +17,10 @@ export const setPriorityTag = (name, cardID) => {
       payload: { name, cardID }
    }
 }
+
+export const setTags = (tags, cardID) => {
+   return {
+      type: CONSTANS.SET_TAGS,
+      payload: { tags, cardID }
+   }
+}

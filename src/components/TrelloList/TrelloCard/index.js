@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
-import { Typography, CardContent, } from '@material-ui/core'
+import React, { useState, useContext } from 'react'
+import { Typography, CardContent, Tooltip, } from '@material-ui/core'
 import { StyledCard, StyledBookmark } from './StyledCard'
 import { Draggable } from 'react-beautiful-dnd'
 import { makeStyles } from '@material-ui/core/styles'
 import Icon from '../../Icon/Icon'
 import CardPreview from './CardPreview'
 import Bookmark from './Bookmark'
+import { CardGlobalContext } from '../TrelloListWrapper/TrelloListWrapper'
 
 const useStyles = makeStyles({
    title: {
@@ -13,8 +14,9 @@ const useStyles = makeStyles({
    },
 })
 
-export const ListCard = ({ card, index }) => {
-   const { title, id, description, tag, priorityTag } = card
+export const ListCard = ({ index }) => {
+   const globalCardData = useContext(CardGlobalContext)
+   const { card: { title, id, priorityTag, tags } } = globalCardData
 
    const classes = useStyles()
    const [open, setOpen] = useState(false)
@@ -29,22 +31,33 @@ export const ListCard = ({ card, index }) => {
                      {...provided.dragHandleProps}
                   >
                      <StyledCard onClick={() => setOpen(true)}>
-                        <Bookmark tag={priorityTag} />
                         <CardContent>
+                           {
+                              tags.map(tag => {
+                                 return (
+                                    <Tooltip title={<p style={{ fontSize: 12 }}>{tag.name}</p>} arrow key={tag.id}>
+                                       <span>
+                                          <Icon name="local_offer" color={tag.color} />
+                                       </span>
+                                    </Tooltip>
+                                 )
+                              })
+                           }
+                           {priorityTag ? <Bookmark tag={priorityTag} /> : null}
                            <Typography className={classes.title} color="textSecondary" variant="subtitle1" gutterBottom >
                               {title}
                            </Typography>
+                           <Icon name="person" />
                         </CardContent>
-                        <Icon name="person" />
-                        <Icon name="bookmark" />
-                     </StyledCard>
 
+
+                     </StyledCard>
                   </div>
                )
             }
 
          </Draggable>
-         {open && <CardPreview card={card} open={open} setOpen={setOpen} />
+         {open && <CardPreview open={open} setOpen={setOpen} />
          }
       </>
 

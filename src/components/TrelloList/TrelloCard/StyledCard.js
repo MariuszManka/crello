@@ -73,5 +73,5 @@ export const ContentCard = styled.div`
 export const Menu = styled(List)`
    grid-area:menu;
    font-size: 13px;
-   border-left: 1px dashed ${({ theme }) => theme.colors.cardContent};
+   border-left: 1px solid ${({ theme }) => theme.colors.cardContentHover};
 `

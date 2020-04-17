@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
-import { Typography, DialogTitle, Divider, ListItem, ListItemText, ListItemIcon } from '@material-ui/core'
+import React, { useState, useContext } from 'react'
+import { Typography, DialogTitle, Divider, ListItem, ListItemIcon } from '@material-ui/core'
 import Icon from '../../Icon/Icon'
 import { StyledContent, StyledDialog, ContentCard, DialogGrid, Menu } from './StyledCard'
 import { makeStyles } from '@material-ui/core/styles'
 import TagActions from './Actions/TagActions'
+import { CardGlobalContext } from '../TrelloListWrapper/TrelloListWrapper'
 
 const useStyles = makeStyles({
    title: {
@@ -19,8 +20,27 @@ const useStyles = makeStyles({
 })
 
 
-const CardPreview = ({ card, open, setOpen }) => {
-   const { title, description, id, priorityTag } = card
+const ActionsMenu = () => {
+   const classes = useStyles()
+   return (
+      <Menu >
+
+         <TagActions />
+
+         <ListItem button className={classes.title} >
+            <ListItemIcon><Icon name="person" md={20} /></ListItemIcon>
+            <p style={{ fontSize: '13px' }}>Członkowie</p>
+         </ListItem>
+      </Menu>
+   )
+}
+
+
+const CardPreview = ({ open, setOpen }) => {
+
+   const globalCardData = useContext(CardGlobalContext)
+   const { card: { title, description } } = globalCardData
+
    const classes = useStyles()
 
    return (
@@ -53,8 +73,6 @@ const CardPreview = ({ card, open, setOpen }) => {
 
                </StyledContent>
                <StyledContent links>
-
-                  <Icon name="bookmarks" color="primary" />
                   <Typography variant="subtitle1" className={classes.subtitle} component="h3">
                      Załączniki
                   </Typography>
@@ -71,13 +89,7 @@ const CardPreview = ({ card, open, setOpen }) => {
                      <p>Komentarze</p>
                   </div>
                </StyledContent>
-               <Menu >
-                  <TagActions cardID={id} priorityTag={priorityTag} />
-                  <ListItem button className={classes.title} >
-                     <ListItemIcon><Icon name="person" md={20} /></ListItemIcon>
-                     <p style={{ fontSize: '13px' }}>Członkowie</p>
-                  </ListItem>
-               </Menu>
+               <ActionsMenu />
             </DialogGrid>
          </StyledDialog>
       </>

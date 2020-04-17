@@ -8,7 +8,7 @@ export const Tag = styled.div`
    border-radius: 5px;
    cursor: pointer;
    background-color: ${({ color }) => color};
-
+   margin:5px;
 `
 export const TagsWrapper = styled.div`
    display:flex;
@@ -37,11 +37,14 @@ export const StyledHeading = styled.div`
 export const StyledMenu = styled(Menu)`
 
 & ul{
-   position:relative !important;
+      min-width: 310px !important;
+      max-height: 450px;
+      position:relative !important;
       border: 1px solid #d3d4d5 !important;
       font-size: 20px !important;
       padding: 10px 10px !important;
-}
+      overflow-y: auto !important;
+      }
     
 `
 export const CloseIcon = styled.div`
@@ -49,4 +52,10 @@ export const CloseIcon = styled.div`
    top: 8px; 
    right: 8px;
    z-index: 100;
+`
+
+export const Paragraph = styled.p`
+font-size: 13px;
+text-align: ${({ align }) => align ? align : 'left'};
+
 `

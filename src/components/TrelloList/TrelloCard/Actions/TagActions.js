@@ -1,33 +1,139 @@
-import React, { useReducer, useState } from 'react'
-import { withStyles } from '@material-ui/core/styles'
-import { Menu, ListItem, ListItemIcon, Tooltip, TextField, Typography, Divider } from '@material-ui/core'
+import React, { useReducer, useState, createContext, useContext } from 'react'
+import { ListItem, ListItemIcon, Tooltip, Typography } from '@material-ui/core'
 import Icon from '../../../Icon/Icon'
 import { connect } from 'react-redux'
-import { Tag, TagsWrapper, StyledHeading, CloseIcon, StyledMenu } from './StyledActions'
+import { Tag, TagsWrapper, StyledHeading, CloseIcon, StyledMenu, Paragraph } from './StyledActions'
 import { Search } from '../../../Menu/SubMenus/FindCardsMenu/FindCardsMenu'
-import { setPriorityTag } from '../../../../actions'
+import { setPriorityTag, setTags } from '../../../../actions'
+import { CardGlobalContext } from '../../TrelloListWrapper/TrelloListWrapper'
 
 
-const TagActions = ({ cardID, tagMenu, priorityTag, dispatch }) => {
+const LocalContext = React.createContext(null) //Lokalny kontekst
 
-   const [currentTag] = [...tagMenu.tags.filter(tag => tag.name === priorityTag)]
+/**
+ * Komponent wyświetlający i obsługujący sekcję z etykietami w podmenu Etykiet
+ * @var {Array} allTags - obiekt z lokalnego kontekstu zawiertający informacje o wyświetlanych aktualnie Etykietach
+ * @var {Array} tags - obiekt z globalnego kontekstu zawierający informacje o wszystkich etykietach
+ */
+const TagSection = () => {
+
+   //Użycie kontekstów
+   const localData = useContext(LocalContext)
+   const globalCardData = useContext(CardGlobalContext)
+   //Destrukturyzacja kontekstów
+   const { dispatch, allTags } = localData
+   const { card: { id: cardID, priorityTag, tags } } = globalCardData
+
+   const [currentTag] = [...allTags.filter(tag => tag.name === priorityTag)] //Filtrowanie tablicy wszystkich tagów w celu sprawdzenia czy 
 
    const [state, setState] = useReducer((state, newState) => ({ ...state, ...newState }), {
-      allTags: tagMenu.tags,
       chosenTag: currentTag && currentTag.id,
-      anchorEl: null
+      isTagDisplayed: true,
+      tagsArray: tags
    })
-   const { allTags, anchorEl, chosenTag } = state
+
+   const { chosenTag, isTagDisplayed, tagsArray } = state
 
    const handleSetPriority = (name, id) => {
       dispatch(setPriorityTag(name, cardID))
 
-      tagMenu.tags.map(tag => tag.id)
+      allTags.map(tag => tag.id)
          .forEach(i => {
             if (i === id)
                setState({ chosenTag: id })
          })
    }
+
+   const handleChoseTag = (tag) => {
+      const { id } = tag
+      let flag
+
+      if (tags.find(tag => tag.id === id)) {
+         const filteredArray = tags.filter(tag => tag.id !== id)
+         dispatch(setTags(filteredArray, cardID))
+      }
+      else {
+         tags.map(tag => tag.flag = !flag)
+         tags.push(tag)
+         dispatch(setTags(tags, cardID))
+      }
+
+      console.log(tags.map(tag => tag.flag))
+   }
+
+   return (
+      allTags.length ?
+         allTags.map(item => {
+            return (
+               <TagsWrapper key={item.id}>
+                  <Tooltip title={<p style={{ fontSize: 12 }}>{item.name}</p>} arrow>
+                     <Tag color={item.color} />
+                  </Tooltip>
+                  <Tooltip title={<p style={{ fontSize: 12 }}>Kolor Standardowy</p>} arrow>
+                     <div>
+                        <Icon name="bookmark" md={20} color={'primary'} onClick={() => handleChoseTag(item)} />
+                     </div>
+                  </Tooltip>
+                  <Tooltip title={<p style={{ fontSize: 12 }}>Kolor Priorytetowy</p>} arrow>
+                     <div>
+                        <Icon
+                           md={25}
+                           name="priority_high"
+                           color={chosenTag === item.id ? 'primary' : 'cardContentHover'}
+                           onClick={() => handleSetPriority(item.name, item.id)} />
+                     </div>
+                  </Tooltip>
+               </TagsWrapper>
+            )
+         })
+         :
+         <Paragraph align="center">
+            Brak Etykiet
+          </Paragraph>
+   )
+}
+
+
+const TagsHeading = () => {
+
+   const localData = useContext(LocalContext)
+   const globalCardData = useContext(CardGlobalContext)
+
+   const { setState, handleClose, allTags } = localData
+   const { tags } = globalCardData
+
+   const handleOnChange = (value) => {
+      setState({ allTags: tags.filter(tag => tag.name.toLowerCase().includes(value.toLowerCase())) })
+   }
+
+   return (
+      <>
+         <CloseIcon>
+            <Icon name="close" onClick={() => handleClose()} />
+         </CloseIcon>
+         <Search handleChange={handleOnChange} placeholder="Szukaj etykiet" />
+         <StyledHeading >
+            Etykiety
+         </StyledHeading>
+      </>
+   )
+}
+
+
+const TagActions = ({ dispatch, }) => {
+
+   const globalCardData = useContext(CardGlobalContext)
+
+   const {
+      tags: globalTags,
+   } = globalCardData
+
+   const [state, setState] = useReducer((state, newState) => ({ ...state, ...newState }), {
+      allTags: globalTags,
+      anchorEl: null
+   })
+
+   const { anchorEl, allTags } = state
 
    const handleClick = (event) => {
       setState({ anchorEl: event.currentTarget })
@@ -37,21 +143,20 @@ const TagActions = ({ cardID, tagMenu, priorityTag, dispatch }) => {
       setState({ anchorEl: null })
    }
 
-   const handleOnChange = (value) => {
-      setState({ allTags: tagMenu.tags.filter(tag => tag.name.toLowerCase().includes(value.toLowerCase())) })
-   }
-
    return (
-      <div>
+      <LocalContext.Provider value={{
+         dispatch,
+         handleClose,
+         setState,
+         allTags
+      }}>
          <ListItem button onClick={handleClick} >
             <ListItemIcon><Icon name="local_offer" md={20} /></ListItemIcon>
-            <p style={{ fontSize: '13px' }}>Etykiety</p>
-
+            <Paragraph >Etykiety</Paragraph>
          </ListItem>
 
          <StyledMenu
             anchorEl={anchorEl}
-            keepMounted
             open={Boolean(anchorEl)}
             onClose={handleClose}
             getContentAnchorEl={null}
@@ -64,41 +169,13 @@ const TagActions = ({ cardID, tagMenu, priorityTag, dispatch }) => {
                horizontal: 'center',
             }}
          >
-            <CloseIcon>
-               <Icon name="close" onClick={() => handleClose()} />
-            </CloseIcon>
 
-            <Search handleChange={handleOnChange} placeholder="Szukaj etykiet" />
-            <StyledHeading >
-               Etykiety
-            </StyledHeading>
+            <TagsHeading />
+            <TagSection />
 
-            {
-               allTags.map(item => {
-                  return (
-                     <TagsWrapper key={item.id}>
-                        <Tooltip title={<p style={{ fontSize: 12 }}>{item.name}</p>} arrow>
-                           <Tag color={item.color} />
-                        </Tooltip>
-                        <Icon name="bookmark" md={25} color="cardContentHover" />
-                        <Tooltip title={<p style={{ fontSize: 12 }}>Priorytet</p>} arrow>
-                           <Icon
-                              md={25}
-                              name="priority_high"
-                              color={chosenTag === item.id ? 'primary' : 'cardContent'}
-                              onClick={() => handleSetPriority(item.name, item.id)} />
-                        </Tooltip>
-                     </TagsWrapper>
-                  )
-               })
-            }
          </StyledMenu>
-      </div >
+      </LocalContext.Provider >
    )
 }
 
-const mapStateToProps = state => ({
-   tagMenu: state.subMenu.tagsMenu
-})
-
-export default connect(mapStateToProps)(TagActions) 
+export default connect()(TagActions) 
