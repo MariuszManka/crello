@@ -10,34 +10,27 @@ import EditTag from './EditTag'
 /**
  * 
  * @param {Object} tagsMenu - objekt tagsMenu ze Stora. Zawiera najważniejsze informacje takie jak id, nazwa czy też kolor danej etykiety
- * @param {Function} dispatch - Funkcja dispatch z Reduxa
  */
 
-const TagsMenu = ({ tagsMenu, dispatch }) => {
+const TagsMenu = ({ tagsMenu }) => {
    const { tags } = tagsMenu
 
-   const [openModal, setOpenModal] = useState(false) //Używane do otwierania modala pozwalającego na dodawanie nowych etykiet
+   const [openEditModal, setOpenEditModal] = useState(false) //Używane do otwierania modala pozwalającego na dodawanie nowych etykiet
+   const [openCreateModal, setOpenCreateModal] = useState(false) //Używane do otwierania modala pozwalającego na dodawanie nowych etykiet
 
    const [state, setState] = useReducer((state, newState) => ({ ...state, ...newState }), {
       color: '#fff',
       name: '',
       id: null,
-      open: false,
-      openAll: false,
-      openPicker: false
    })
 
-   const { color, id, open, openAll, openPicker, name } = state
-
-   const handleChangeColor = (color, name, id) => {
-      setState({ color: color, id: id })
-      dispatch(changeTagColor(color, name, id))
-   }
-
    const handleIconClick = (color, id, name) => {
+      setOpenEditModal(true)
       setState({ color, id, name, openAll: true, open: true, }) //Otwiera menu do edycji Etykiety po kliknięciu w Ikonę edycji
    }
+
    const handleTagClick = (color, id, name) => {
+      setOpenEditModal(true)
       setState({ color, id, name, openPicker: true, openAll: false, open: true, })//Otwiera menu do edycji Etykiety po kliknięciu w Etykietę
    }
 
@@ -51,36 +44,23 @@ const TagsMenu = ({ tagsMenu, dispatch }) => {
                         <Tooltip title={<p style={{ fontSize: '12px', }}>{item.name}</p>} TransitionComponent={Zoom} arrow>
                            <Tag background={item.color} onClick={() => handleTagClick(item.color, item.id, item.name)} />
                         </Tooltip>
-                        <Icon name="create" md={18} onClick={() => handleIconClick(item.color, item.id, item.name)} />
+                        <Icon name="create" md={22} onClick={() => handleIconClick(item.color, item.id, item.name)} />
                      </ListItem>
                   )
                })
             }
             <ListItem>
-               <Tag addTag onClick={() => setOpenModal(true)}>
+               <Tag addTag onClick={() => setOpenCreateModal(true)}>
                   <ListItemText>Utwórz etykietę</ListItemText>
-                  <Icon name="add_circle" md={20} onClick={() => setOpenModal(true)} />
+                  <Icon name="add_circle" md={22} onClick={() => setOpenCreateModal(true)} />
                </Tag>
             </ListItem>
-
-
             <ListItem /> {/*Placeholder*/}
             <Divider />
-            <ListItem>
-               {
-
-                  open &&
-                  <EditTag
-                     props={{ color, id, openAll, openPicker, name }}
-                     handleChangeColor={handleChangeColor}
-                     setState={setState}
-                  />
-
-               }
-            </ListItem>
          </List>
 
-         <CreateTag open={openModal} setModalOpen={setOpenModal} /> {/*Modal do tworzenia nowej etykiety */}
+         <EditTag open={openEditModal} setOpenEditModal={setOpenEditModal} state={state} setState={setState} />
+         <CreateTag open={openCreateModal} setOpenCreateModal={setOpenCreateModal} /> {/*Modal do tworzenia nowej etykiety */}
       </>
    )
 }

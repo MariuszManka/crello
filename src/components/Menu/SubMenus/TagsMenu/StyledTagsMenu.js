@@ -8,7 +8,7 @@ import { TextField, Button } from '@material-ui/core'
 export const Tag = styled.div`
    width:85%;
    margin: 0 15px 0 auto;
-   height: 25px;
+   height: 30px;
    border-radius: 7px;
    background-color: ${({ background }) => background};
    cursor: pointer;
@@ -21,7 +21,7 @@ export const Tag = styled.div`
        align-items:center;
        text-align: center;
        padding: 15px 8px;
-       margin-right: 30px;
+       margin-right: 38px;
    `};
 
 `
@@ -45,7 +45,6 @@ width: 100% !important;
 & input{
    font-size: 15px !important;
 }
-
 `
 
 export const StyledButton = styled(Button)`

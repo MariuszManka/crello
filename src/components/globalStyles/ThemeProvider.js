@@ -10,7 +10,8 @@ export const theme = {
       menuIcon: '#353b48',
       error: '#F9094C',
       cardContent: 'rgba(9,30,66,.10)',
-      cardContentHover: 'rgba(9,30,66,.15)'
+      cardContentHover: 'rgba(9,30,66,.15)',
+      greyText: '#7C7C7C'
    },
    fonts: {
       primary: `'Roboto', sans-serif`,

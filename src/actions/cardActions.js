@@ -24,3 +24,10 @@ export const setTags = (tags, cardID) => {
       payload: { tags, cardID }
    }
 }
+
+export const changeCardDescription = (newDescription, cardID) => {
+   return {
+      type: CONSTANS.CHANGE_CARD_DESCRIPTION,
+      payload: { newDescription, cardID }
+   }
+}

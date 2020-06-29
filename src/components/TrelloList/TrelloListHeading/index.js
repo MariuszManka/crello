@@ -44,7 +44,6 @@ const ListHeading = ({ title, dispatch }) => {
                      if (e.key === 'Enter')
                         handleSave()
                   }}
-
                />
                :
                <Heading onClick={() => setState({ open: true })}>

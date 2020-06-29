@@ -32,6 +32,7 @@ const Form = ({ list, setOpen, id, dispatch }) => {
       <FormWrapper>
          <Card style={{ minHeight: cardheight, minWidth: 250 }}>
             <StyledTextArea
+               autoFocus
                placeholder={placeholder}
                value={value}
                onBlur={() => setOpen(false)}

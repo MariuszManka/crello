@@ -23,8 +23,6 @@ const materialTheme = createMuiTheme({
   },
 })
 
-
-
 const App = ({ lists, dispatch }) => {
 
   const onDragEnd = (result) => {

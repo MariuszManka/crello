@@ -8,16 +8,16 @@ const initialState = {
       email: 'mariuszmanka2@gmail.com',
       avatarLetters: 'MM',
       avatarImage: undefined,
-      description: 'Pierwsza lista Crello stworzona przez: Mariusz Mańka'
+      description: ''
    },
 
    tagsMenu: {
       tags: [
-         { id: 0, color: '#fe346e', name: 'Ważne', },
-         { id: 1, color: '#8e44ad', name: 'Frontend', },
-         { id: 2, color: '#f3c623', name: 'Do zrobienia', },
-         { id: 3, color: '#3cc900', name: 'Do testów', },
-         { id: 4, color: '#323232', name: 'Backend', },
+         { id: 0, color: '#ff9800', name: 'Do zrobienia', },
+         { id: 1, color: '#00bcd4', name: 'W trakcie', },
+         { id: 2, color: '#424242', name: 'Do testów', },
+         { id: 3, color: '#2e7d32', name: 'Zaakceptowane', },
+         { id: 4, color: '#f44336', name: 'Odrzucone', },
       ]
    }
 

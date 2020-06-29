@@ -1,6 +1,6 @@
 import { CONSTANS } from '../actions'
 import React from 'react'
-import { InfoMenu, ChangePictureMenu, FindCardsMenu, TagsMenu, PinnedMenu, ArchiveMenu, SettingsMenu } from '../components/Menu/SubMenus'
+import { InfoMenu, Calendar, FindCardsMenu, TagsMenu, PinnedMenu, FilesMenu, ArchiveMenu, SettingsMenu } from '../components/Menu/SubMenus'
 
 const initialState = {
    title: 'Menu',
@@ -8,12 +8,14 @@ const initialState = {
    iconVisible: true,
    menuIcons: [
       { id: 0, icon: 'info', description: 'Informacje o tablicy', component: <InfoMenu /> },
-      { id: 1, icon: 'add_photo_alternate', description: 'Zmień tło', component: <ChangePictureMenu /> },
-      { id: 2, icon: 'search', description: 'Szukaj kart', component: <FindCardsMenu /> },
-      { id: 3, icon: 'local_offer', description: 'Etykiety', component: <TagsMenu /> },
-      { id: 4, icon: 'attach_file', description: 'Przypięte', component: <PinnedMenu /> },
-      { id: 5, icon: 'archive', description: 'Archiwum', component: <ArchiveMenu /> },
-      { id: 6, icon: 'settings', description: 'Ustawienia', component: <SettingsMenu /> },
+      // { id: 1, icon: 'add_photo_alternate', description: 'Zmień tło', component: <ChangePictureMenu /> },
+      { id: 1, icon: 'search', description: 'Szukaj kart', component: <FindCardsMenu /> },
+      { id: 2, icon: 'local_offer', description: 'Etykiety', component: <TagsMenu /> },
+      { id: 3, icon: 'attach_file', description: 'Przypięte', component: <PinnedMenu /> },
+      { id: 4, icon: 'layers', description: 'Pliki', component: <FilesMenu /> },
+      { id: 5, icon: 'calendar_today', description: 'Kalendarz', component: <Calendar /> },
+      { id: 6, icon: 'archive', description: 'Archiwum', component: <ArchiveMenu /> },
+      { id: 7, icon: 'settings', description: 'Ustawienia', component: <SettingsMenu /> },
    ],
    currentOption: [],
 }
@@ -58,7 +60,6 @@ const menuReducer = (state = initialState, action) => {
 
       case CONSTANS.MENU_OPTION_CLICK:
          {
-
             const { id, title } = action.payload
             const newState = { ...state }
             newState.currentOption = newState.menuIcons.filter(icon => icon.id === id)

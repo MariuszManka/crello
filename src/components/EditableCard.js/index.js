@@ -1,8 +1,21 @@
-import React, { useState } from 'react'
-import { StyledTextArea, StyledButton, ButtonWrapper, StyledCard } from './StyledEditabledCard'
-import { Card, CardContent, } from '@material-ui/core'
+import React, { useState, useReducer } from 'react'
+import { StyledTextArea, StyledButton, ButtonWrapper, StyledCard, ContentCard, } from './StyledEditabledCard'
+import { Card, ListItem } from '@material-ui/core'
 import { connect } from 'react-redux'
+import { makeStyles } from '@material-ui/core/styles'
+import Icon from '../Icon/Icon'
 
+const useStyles = makeStyles({
+   title: {
+      fontSize: 18
+   },
+   addDescriptionButton: {
+      width: 150
+   },
+   addDescriptionText: {
+      fontSize: 18
+   }
+})
 /**
  * Komponent pozwalający na edycję tekstu inline (Wyświetla albo tekst albo miejsce do jego edycji )
  * @param {String} description - tekst wyświetlany w karcie
@@ -11,24 +24,35 @@ import { connect } from 'react-redux'
  * @param {Function} dispatch - funkcja dispatch z Reduxa
  * @param {Bool} withButtons - zmienna sterująca wyświetlaniem się bądź nie przycisków "Zapisz" oraz "Cofnij"
  */
-export const EditableTextArea = ({ description, setOpen, action, dispatch, withButtons, }) => {
+export const EditableTextArea = ({ cardInfo, setOpen, action, dispatch, withButtons, }) => {
 
+   const { description, cardID } = cardInfo
    const [value, setValue] = useState(description)
 
    const handleSave = () => {
-      if (value)
-         dispatch(action(value))
+      // if (value.trim()) { //Powoduje że nie można dodać pustego opisu
+      if (value.trim() === description) {
+         setOpen(false)
+         return
+      }
+      else {
+         dispatch(action(value, cardID))
+         setOpen(false)
+      }
+      // }
    }
-
    return (
       <>
          <StyledTextArea
             autoFocus
-            defaultValue={value}
-            onInput={(e) => setValue(e.target.value)}
-            cardheight={50}
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
             onBlur={() => setOpen(false)}
-
+            onKeyDown={(e) => {
+               if (e.key === 'Enter' && !withButtons) {
+                  handleSave()
+               }
+            }}
          />
          {
             withButtons &&
@@ -42,13 +66,15 @@ export const EditableTextArea = ({ description, setOpen, action, dispatch, withB
    )
 }
 
-const EditableCard = ({ description, action, dispatch, withButtons, }) => {
+const EditableCard = ({ description, cardID, action, dispatch, withButtons, }) => {
+
    const [open, setOpen] = useState(false)
+   const classes = useStyles()
 
    return (
-      open ?
+      open ? //W zależności od open wyświetlamy albo kartę albo pole do edycji
          <EditableTextArea
-            description={description}
+            cardInfo={{ description, cardID }}
             setOpen={setOpen}
             open={open}
             action={action}
@@ -56,11 +82,19 @@ const EditableCard = ({ description, action, dispatch, withButtons, }) => {
             withButtons={withButtons}
          />
          :
-         <StyledCard onClick={() => setOpen(true)} >
-            <CardContent style={{ padding: '10px' }}>
-               {description}
-            </CardContent>
-         </StyledCard>
+         description ? //Jeśli description jest puste wyświetlamy przycisk "Dodaj opis"
+            <ContentCard onClick={() => setOpen(true)}>
+               <p style={{ padding: 0, margin: '0 auto 0 0', fontSize: 14 }}>
+                  {description}
+               </p>
+            </ContentCard>
+            :
+            <ListItem button className={classes.addDescriptionButton} onClick={() => setOpen(true)}>
+               <p style={{ padding: 0, margin: '0 auto 0 0', fontSize: 14 }}>
+                  Dodaj Opis
+               </p>
+               <Icon name="add" md={18} color="greyText" />
+            </ListItem>
    )
 }
 

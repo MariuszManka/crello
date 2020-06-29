@@ -24,15 +24,13 @@ const TagSection = () => {
    const { dispatch, allTags } = localData
    const { card: { id: cardID, priorityTag, tags } } = globalCardData
 
-   const [currentTag] = [...allTags.filter(tag => tag.name === priorityTag)] //Filtrowanie tablicy wszystkich tagów w celu sprawdzenia czy 
-
+   const [currentTag] = [...allTags.filter(tag => tag.name === priorityTag)] //Filtrowanie tablicy wszystkich tagów w celu sprawdzenia czy  
    const [state, setState] = useReducer((state, newState) => ({ ...state, ...newState }), {
-      chosenTag: currentTag && currentTag.id,
-      isTagDisplayed: true,
-      tagsArray: tags
+      chosenPriorityTag: currentTag && currentTag.id,//Wybrany przez usera tag główny
+      chosenTagsID: tags.map(tag => tag.id) //Tablica która przechowuje ID wybranych przez usera tagów standardowych
    })
 
-   const { chosenTag, isTagDisplayed, tagsArray } = state
+   const { chosenPriorityTag, chosenTagsID } = state
 
    const handleSetPriority = (name, id) => {
       dispatch(setPriorityTag(name, cardID))
@@ -40,25 +38,27 @@ const TagSection = () => {
       allTags.map(tag => tag.id)
          .forEach(i => {
             if (i === id)
-               setState({ chosenTag: id })
+               setState({ chosenPriorityTag: id })
          })
    }
 
    const handleChoseTag = (tag) => {
       const { id } = tag
-      let flag
 
       if (tags.find(tag => tag.id === id)) {
+
+         //Gdy kliknięto dwa razy ten sam znacznik - filtrujemy tablicę ze znacznikami i zwracamy nową bez klikniętego znacznika
          const filteredArray = tags.filter(tag => tag.id !== id)
+         chosenTagsID.length = 0 //Usuwamy wszystkie elementy z tablice chosenTagsID (opróżniamy ją)
+         filteredArray.map(tag => chosenTagsID.push(tag.id)) //Zastępujemy ją nową tablicą z aktualnymi indeksami
          dispatch(setTags(filteredArray, cardID))
       }
       else {
-         tags.map(tag => tag.flag = !flag)
+         //Gdy klikniętego znacznika nie ma w tablicy. Dodajemy go do niej i wywołuejmy akcję setTags.
          tags.push(tag)
+         chosenTagsID.push(id)//Dodajemy id klikniętego tagu do tablicy
          dispatch(setTags(tags, cardID))
       }
-
-      console.log(tags.map(tag => tag.flag))
    }
 
    return (
@@ -67,19 +67,24 @@ const TagSection = () => {
             return (
                <TagsWrapper key={item.id}>
                   <Tooltip title={<p style={{ fontSize: 12 }}>{item.name}</p>} arrow>
-                     <Tag color={item.color} />
+                     <Tag color={item.color} onClick={() => handleChoseTag(item)} />
                   </Tooltip>
-                  <Tooltip title={<p style={{ fontSize: 12 }}>Kolor Standardowy</p>} arrow>
+                  <Tooltip title={<p style={{ fontSize: 12 }}>Etykieta Standardowa</p>} arrow>
                      <div>
-                        <Icon name="bookmark" md={20} color={'primary'} onClick={() => handleChoseTag(item)} />
+                        <Icon
+                           name="bookmark"
+                           md={20}
+
+                           color={chosenTagsID.includes(item.id) ? 'primary' : 'cardContentHover'}
+                           onClick={() => handleChoseTag(item)} />
                      </div>
                   </Tooltip>
-                  <Tooltip title={<p style={{ fontSize: 12 }}>Kolor Priorytetowy</p>} arrow>
+                  <Tooltip title={<p style={{ fontSize: 12 }}>Etykieta Priorytetowa</p>} arrow>
                      <div>
                         <Icon
                            md={25}
                            name="priority_high"
-                           color={chosenTag === item.id ? 'primary' : 'cardContentHover'}
+                           color={chosenPriorityTag === item.id ? 'primary' : 'cardContentHover'}
                            onClick={() => handleSetPriority(item.name, item.id)} />
                      </div>
                   </Tooltip>

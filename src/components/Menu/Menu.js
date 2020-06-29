@@ -32,10 +32,10 @@ function Menu({ icons, dispatch }) {
          </List>
          <StyledList>
             <Divider />
-            <ListItem>
+            {/* <ListItem>
                <ListItemIcon><Icon name="forum" /></ListItemIcon>
                <ListItemText primary="Aktywność" />
-            </ListItem>
+            </ListItem> */} {/*PODMENU AKTYWNOŚĆ */}
          </StyledList>
       </MenuTemplate>
    )

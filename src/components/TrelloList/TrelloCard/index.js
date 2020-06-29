@@ -31,7 +31,12 @@ export const ListCard = ({ index }) => {
                      {...provided.dragHandleProps}
                   >
                      <StyledCard onClick={() => setOpen(true)}>
-                        <CardContent>
+                        <CardContent style={{ padding: '10px' }}>
+                           {priorityTag ? <Bookmark tag={priorityTag} /> : null}
+                           <Typography className={classes.title} color="textSecondary" variant="subtitle1" gutterBottom >
+                              {title}
+                           </Typography>
+                           {/* <Icon name="person" /> */}
                            {
                               tags.map(tag => {
                                  return (
@@ -43,14 +48,7 @@ export const ListCard = ({ index }) => {
                                  )
                               })
                            }
-                           {priorityTag ? <Bookmark tag={priorityTag} /> : null}
-                           <Typography className={classes.title} color="textSecondary" variant="subtitle1" gutterBottom >
-                              {title}
-                           </Typography>
-                           <Icon name="person" />
                         </CardContent>
-
-
                      </StyledCard>
                   </div>
                )

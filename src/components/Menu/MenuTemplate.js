@@ -32,9 +32,11 @@ const MenuTemplate = ({ children, dispatch, menu }) => {
       dispatch(menuClose(false, true))
    }
 
+   console.log(option && option.component)
+
+
    return (
       <StyledMenuTemplate open={open}>
-
          <MenuHeader >
             {
                iconVisible ?

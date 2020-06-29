@@ -32,8 +32,11 @@ const TopBarIcons = () => {
             <Icon color="topbarIcons" name="add" />
          </ListItemIcon>
          <ListItemIcon>
-            <Icon color="topbarIcons" name="info" />
+            <Icon color="topbarIcons" name="people_alt" />
          </ListItemIcon>
+         {/* <ListItemIcon>
+            <Icon color="topbarIcons" name="info" />
+         </ListItemIcon> */}
          <ListItemIcon>
             <Badge badgeContent={4} color="error"> {/** badgeContent odpowiada za wyświetlanie się powiadomień nad ikonami*/}
                <Icon color="topbarIcons" name="notifications_active" />
@@ -54,7 +57,7 @@ export default function TopBar() {
       <StyledTopBar >
          <Overlay>
 
-            <Search />
+            {/* <Search /> */}
             <StyledLogo src={logo} />
             <TopBarIcons />
 

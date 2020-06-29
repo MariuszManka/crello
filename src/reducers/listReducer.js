@@ -1,7 +1,7 @@
 import { CONSTANS } from '../actions'
 
 let listID = 2
-let cardID = 4
+let cardID = 5
 
 const initialState = [
    {
@@ -14,6 +14,18 @@ const initialState = [
             description: 'uis aliquet eros eu lacus fermentum rhoncus nec id sem. Sed id cursus lacus. Vivamus non orci at sapien aliquet rutrum vel a odio. Suspendisse eget lectus eu ligula maximus elementum. Nunc ac sagittis urna, a pulvinar dui.',
             priorityTag: '',
             tags: [],
+            links: [
+               {
+                  id: 0,
+                  text: 'Omero - strona główna',
+                  link: 'http://132.145.66.150/login'
+               },
+               {
+                  id: 1,
+                  text: 'Ipix - strona główna',
+                  link: 'http://ipix.eu/'
+               }
+            ],
          },
          {
             id: `card-${1}`,
@@ -21,6 +33,18 @@ const initialState = [
             description: 'Praesent ornare lacinia dolor nec luctus',
             priorityTag: '',
             tags: [],
+            links: [
+               {
+                  id: 0,
+                  text: 'Omero - strona główna',
+                  link: 'http://132.145.66.150/login'
+               },
+               {
+                  id: 1,
+                  text: 'Ipix - strona główna',
+                  link: 'http://ipix.eu/'
+               }
+            ],
          }
       ]
    },
@@ -34,14 +58,58 @@ const initialState = [
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla arcu vel libero semper, a malesuada justo sollicitudin. Donec tincidunt sapien ligula',
             priorityTag: '',
             tags: [],
+            links: [
+               {
+                  id: 0,
+                  text: 'Trello - strona główna',
+                  link: 'https://trello.com/pl'
+               },
+               {
+                  id: 1,
+                  text: 'Ipix - strona główna',
+                  link: 'http://ipix.eu/'
+               }
+            ],
          },
          {
             id: `card-${3}`,
             title: 'Przepracować tutorial na Youtube',
-            description: ' Morbi ultricies lectus sit amet velit mattis, ac egestas purus tempor. Aenean tempor blandit orci laoreet vulputate. Sed consequat fermentum tortor, id molestie erat convallis ut.',
+            description: '',
             priorityTag: '',
             tags: [],
+            links: [
+               {
+                  id: 0,
+                  text: 'Kurs do przepracowania',
+                  link: 'https://www.youtube.com/watch?v=RDQGPs7StNA'
+               },
+               {
+                  id: 1,
+                  text: 'Ipix - strona główna',
+                  link: 'http://ipix.eu/'
+               }
+            ],
+         },
+         {
+            id: `card-${4}`,
+            title: 'Dodać lepsze tworzenie kart',
+            description: 'Dodać przycisk przy tworzeniu karty który pozwoli na więcej akcji przy tworzeniu karty w liście. Będzie można od razu zrobić listę, dodać opis, przypisać etykiety, dodać niebedne linki oraz komentarze itp',
+            priorityTag: 'Ważne',
+            tags: [],
+            links: [
+               {
+                  id: 0,
+                  text: 'Kurs do przepracowania',
+                  link: 'https://www.youtube.com/watch?v=RDQGPs7StNA'
+               },
+               {
+                  id: 1,
+                  text: 'Ipix - strona główna',
+                  link: 'http://ipix.eu/'
+               }
+            ],
          }
+
       ]
    },
 
@@ -74,12 +142,17 @@ const listsReducer = (state = initialState, action) => {
 
       case CONSTANS.ADD_CARD: {
          const newCard = {
-            text: action.payload.text,
-            id: cardID
+            id: cardID,
+            title: action.payload.text,
+            description: '',
+            priorityTag: '',
+            tags: [],
+            links: [],
          }
          cardID++
 
          const newState = state.map(list => {
+            console.log(list)
             if (list.id === action.payload.listID) {
                return {
                   ...list,
@@ -140,6 +213,14 @@ const listsReducer = (state = initialState, action) => {
          const { tags, cardID } = action.payload
          const newState = state
          newState.map(item => item.cards.filter(card => card.id === cardID).map(c => c.tags = tags))
+
+         return [...newState]
+      }
+
+      case CONSTANS.CHANGE_CARD_DESCRIPTION: {
+         const { newDescription, cardID } = action.payload
+         const newState = state
+         newState.map(item => item.cards.filter(card => card.id === cardID).map(c => c.description = newDescription))
 
          return [...newState]
       }

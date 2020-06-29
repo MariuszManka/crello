@@ -1,11 +1,10 @@
 import styled from 'styled-components'
 import Card from '@material-ui/core/Card'
-import { DialogContent, Dialog, List } from '@material-ui/core'
+import { Dialog, List } from '@material-ui/core'
 
 export const StyledDialog = styled(Dialog)`
-
       & div{
-      overflow-y: visible;
+         overflow-y: visible;
       }
 `
 export const StyledCard = styled(Card)`
@@ -20,8 +19,8 @@ export const StyledBookmark = styled.div`
    right:0;
 	width: 0;
 	height: 0;
-	border-top: 40px solid ${({ color }) => color ? color : 'transparent'};
-	border-left:40px solid transparent;
+	border-top: 28px solid ${({ color }) => color ? color : 'transparent'};
+	border-left:28px solid transparent;
 `
 
 /**
@@ -38,7 +37,6 @@ export const DialogGrid = styled.div`
  * Kontener z gridem do Contentu
  */
 export const StyledContent = styled.div`
-   /* min-width: 500px; */
   margin-left: 20px;
   display: grid;
   grid-template-columns: 40px 1fr;
@@ -51,24 +49,11 @@ export const StyledContent = styled.div`
      align-self:center;
   }
 
-   ${({ description }) => description && 'grid-area: description'};
+   ${({ descriptionComponent }) => descriptionComponent && 'grid-area: description;'};
    ${({ links }) => links && 'grid-area: links'};
    ${({ comments }) => comments && 'grid-area: comments'};
 `
 
-export const ContentCard = styled.div`
-      padding: 15px 20px;
-      border-radius: 4px;
-      font-size: 14px;
-      text-align:justify;
-      background-color: ${({ theme }) => theme.colors.cardContent};
-      cursor: pointer;
-      transition: background-color .15s ease-out;
-
-      &:hover{
-         background-color: ${({ theme }) => theme.colors.cardContentHover};
-      }
-`
 
 export const Menu = styled(List)`
    grid-area:menu;
