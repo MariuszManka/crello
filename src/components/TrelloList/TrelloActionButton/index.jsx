@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Icon from '../../Icon/Icon'
 import { StyledButtonWrapper, StyledTextArea, StyledAddButton, StyledOptionWrapper, FormWrapper } from './StyledActionButton'
-import { Card } from '@material-ui/core'
+import { Card, IconButton } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { addList, addCard } from '../../../actions'
 
@@ -32,6 +32,7 @@ const Form = ({ list, setOpen, id, dispatch }) => {
       <FormWrapper as="form" onSubmit={e => { e.preventDefault(); list ? handleAddList() : handleAddCard(); setOpen(false) }}>
          <Card style={{ minHeight: cardheight, minWidth: 250 }}>
             <StyledTextArea
+               aria-label={placeholder}
                autoFocus
                placeholder={placeholder}
                value={value}
@@ -47,10 +48,12 @@ const Form = ({ list, setOpen, id, dispatch }) => {
             >
                {buttonTitle}
             </StyledAddButton>
-            <Icon name="close" onClick={() => {
-               setOpen(false)
-               setValue('')
-            }} />
+            <IconButton aria-label="Anuluj dodawanie" onClick={() => {
+                  setOpen(false)
+                  setValue('')
+               }}>
+               <Icon name="close" />
+            </IconButton>
          </StyledOptionWrapper>
       </FormWrapper>
    )
@@ -78,4 +81,4 @@ const ActionButton = ({ list, id, dispatch }) => {
 }
 
 
-export default connect()(ActionButton) 
+export default connect()(ActionButton)

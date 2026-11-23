@@ -15,9 +15,13 @@ export const StyledButton = styled.button`
   padding: 15px 5px;
   background-color: transparent;
   border: none;
-  outline: none;
   font-size: 16px;
   transition: color 0.1s ease-in-out;
+
+  &:focus-visible {
+      outline: 3px solid ${({ theme }) => theme.colors.primary};
+      outline-offset: 2px;
+  }
   
   &:hover{
       color: ${({ theme }) => theme.colors.primary};
@@ -43,8 +47,16 @@ export const ContentCard = styled(Card)`
       cursor: pointer;
       transition: background-color .15s ease-out;
       max-width: 350px !important;
+      width: 100%;
+      border: 0;
+      text-align: left;
 
       &:hover{
          background-color: ${({ theme }) => theme.colors.cardContentHover};
+      }
+
+      &:focus-visible {
+         outline: 3px solid ${({ theme }) => theme.colors.primary};
+         outline-offset: 2px;
       }
 `

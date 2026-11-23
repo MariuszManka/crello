@@ -27,9 +27,14 @@ export const ListCard = ({ index }) => {
                   <div
                      ref={provided.innerRef}
                      {...provided.draggableProps}
-                     {...provided.dragHandleProps}
                   >
-                     <StyledCard onClick={() => setOpen(true)}>
+                     <StyledCard
+                        {...provided.dragHandleProps}
+                        component="button"
+                        type="button"
+                        aria-label={`Otwórz kartę: ${title}`}
+                        onClick={() => setOpen(true)}
+                     >
                         <CardContent style={{ padding: '10px' }}>
                            {priorityTag !== '' && priorityTag != null ? <Bookmark tag={priorityTag} /> : null}
                            <Typography className={classes.title} color="textSecondary" variant="subtitle1" gutterBottom >

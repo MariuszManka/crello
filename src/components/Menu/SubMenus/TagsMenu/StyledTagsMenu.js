@@ -5,13 +5,19 @@ import {
 } from 'react-color'
 import { TextField, Button } from '@material-ui/core'
 
-export const Tag = styled.div`
+export const Tag = styled.button`
    width:85%;
    margin: 0 15px 0 auto;
    height: 30px;
    border-radius: 7px;
    background-color: ${({ background }) => background};
    cursor: pointer;
+   border: 0;
+
+   &:focus-visible {
+      outline: 3px solid ${({ theme }) => theme.colors.primary};
+      outline-offset: 2px;
+   }
 
    ${({ addTag, theme }) => addTag && `
        background-color: transparent;

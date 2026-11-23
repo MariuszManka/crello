@@ -21,7 +21,6 @@ const TrelloList = ({ lists, tags }) => {
                {provided => (
                   <TrelloListWrapper
                      {...provided.draggableProps}
-                     {...provided.dragHandleProps}
                      ref={provided.innerRef}
                   >
                      <Droppable droppableId={String(list.id)}>
@@ -30,7 +29,7 @@ const TrelloList = ({ lists, tags }) => {
                               {...provided.droppableProps}
                               ref={provided.innerRef}
                            >
-                              <ListHeading key={list.id} listID={list.id} title={list.title} />
+                              <ListHeading key={list.id} listID={list.id} title={list.title} dragHandleProps={provided.dragHandleProps} />
                               {
                                  list.cards.map((card, index) =>
                                     <CardGlobalContext.Provider key={card.id}

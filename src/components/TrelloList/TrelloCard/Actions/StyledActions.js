@@ -1,13 +1,19 @@
 import styled from 'styled-components'
 
 import { Menu } from '@material-ui/core'
-export const Tag = styled.div`
+export const Tag = styled.button`
    height:25px;
    width: 180px;
    border-radius: 5px;
    cursor: pointer;
+   border: 0;
    background-color: ${({ color }) => color};
    margin:5px;
+
+   &:focus-visible {
+      outline: 3px solid ${({ theme }) => theme.colors.primary};
+      outline-offset: 2px;
+   }
 `
 export const TagsWrapper = styled.div`
    display:flex;

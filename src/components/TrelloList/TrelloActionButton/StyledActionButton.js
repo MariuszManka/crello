@@ -24,9 +24,13 @@ export const StyledTextArea = styled(TextareaAutosize)`
    resize: none;
    width: 100%;
    padding: 5px;
-   outline: none;
    border: none;
    min-height:${({ cardheight }) => `${cardheight}px`};
+
+   &:focus-visible {
+      outline: 3px solid ${({ theme }) => theme.colors.primary};
+      outline-offset: 2px;
+   }
 
    `
 

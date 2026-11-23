@@ -42,7 +42,7 @@ const MenuTemplate = ({ children, dispatch, menu }) => {
          <MenuHeader >
             {
                iconVisible ?
-                  <IconButton style={{ position: 'absolute' }} onClick={handleSetMenuOpen}>
+                  <IconButton aria-label={option ? 'Wróć do menu' : 'Otwórz menu'} style={{ position: 'absolute' }} onClick={handleSetMenuOpen}>
                      <Icon name='chevron_left' md={35} />
                   </IconButton>
                   :
@@ -51,7 +51,7 @@ const MenuTemplate = ({ children, dispatch, menu }) => {
             <MenuTextCenter>
                <p>{title}</p>
             </MenuTextCenter>
-            <IconButton style={{ position: 'absolute', right: 25, top: 0 }} onClick={handleCloseMenu}>
+            <IconButton aria-label="Zamknij menu" style={{ position: 'absolute', right: 25, top: 0 }} onClick={handleCloseMenu}>
                <Icon name='close' md={25} />
             </IconButton>
          </MenuHeader>

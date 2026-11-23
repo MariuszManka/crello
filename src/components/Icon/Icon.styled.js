@@ -8,13 +8,13 @@ import styled from 'styled-components'
  * @param {Number} rotate - odpowiedzialny za rotację ikony
  */
 
-export const StlyedIcon = styled.i`
+export const StyledIcon = styled.i`
 font-size: ${({ md }) => md && `${md}px`} !important;
-cursor: pointer;
+cursor: inherit;
 color: ${({ theme, color }) => color && theme.colors[color] || color};
 transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 
-${({ theme, outlined }) => outlined && `
+${({ outlined }) => outlined && `
    &:hover{
       padding: 4px 4px 4px 4px;
       border-radius: 3px;

@@ -15,13 +15,13 @@ const initialState = [
         links: [
           {
             id: 0,
-            text: "Omero - strona główna",
-            link: "http://132.145.66.150/login",
+            text: "Dokumentacja projektu",
+            link: "https://example.com/docs",
           },
           {
             id: 1,
-            text: "Ipix - strona główna",
-            link: "http://ipix.eu/",
+            text: "Przykładowy zasób",
+            link: "https://example.com/resources",
           },
         ],
       },
@@ -34,13 +34,13 @@ const initialState = [
         links: [
           {
             id: 0,
-            text: "Omero - strona główna",
-            link: "http://132.145.66.150/login",
+            text: "Dokumentacja projektu",
+            link: "https://example.com/docs",
           },
           {
             id: 1,
-            text: "Ipix - strona główna",
-            link: "http://ipix.eu/",
+            text: "Przykładowy zasób",
+            link: "https://example.com/resources",
           },
         ],
       },
@@ -65,8 +65,8 @@ const initialState = [
           },
           {
             id: 1,
-            text: "Ipix - strona główna",
-            link: "http://ipix.eu/",
+            text: "Przykładowy zasób",
+            link: "https://example.com/resources",
           },
         ],
       },
@@ -84,8 +84,8 @@ const initialState = [
           },
           {
             id: 1,
-            text: "Ipix - strona główna",
-            link: "http://ipix.eu/",
+            text: "Przykładowy zasób",
+            link: "https://example.com/resources",
           },
         ],
       },
@@ -104,8 +104,8 @@ const initialState = [
           },
           {
             id: 1,
-            text: "Ipix - strona główna",
-            link: "http://ipix.eu/",
+            text: "Przykładowy zasób",
+            link: "https://example.com/resources",
           },
         ],
       },

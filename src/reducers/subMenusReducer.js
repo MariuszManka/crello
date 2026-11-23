@@ -3,7 +3,7 @@ import { CONSTANS } from "../actions/constants";
 const initialState = {
   infoMenu: {
     author: "Mariusz Mańka",
-    email: "mariuszmanka2@gmail.com",
+    email: "",
     avatarLetters: "MM",
     avatarImage: undefined,
     description: "",

@@ -1,5 +1,5 @@
 import React, { useState, useReducer } from 'react'
-import { List, ListItem, Zoom, Tooltip, Divider, ListItemText} from '@material-ui/core'
+import { List, ListItem, Zoom, Tooltip, Divider, ListItemText, IconButton} from '@material-ui/core'
 import Icon from '../../../Icon/Icon'
 import { Tag} from './StyledTagsMenu'
 import { connect } from 'react-redux'
@@ -41,17 +41,19 @@ const TagsMenu = ({ tagsMenu }) => {
                   return (
                      <ListItem key={item.id} >
                         <Tooltip title={<p style={{ fontSize: '12px', }}>{item.name}</p>} TransitionComponent={Zoom} arrow>
-                           <Tag background={item.color} onClick={() => handleTagClick(item.color, item.id, item.name)} />
+                           <Tag type="button" aria-label={`Edytuj kolor etykiety: ${item.name}`} background={item.color} onClick={() => handleTagClick(item.color, item.id, item.name)} />
                         </Tooltip>
-                        <Icon name="create" md={22} onClick={() => handleIconClick(item.color, item.id, item.name)} />
+                        <IconButton aria-label={`Edytuj etykietę: ${item.name}`} onClick={() => handleIconClick(item.color, item.id, item.name)}>
+                           <Icon name="create" md={22} />
+                        </IconButton>
                      </ListItem>
                   )
                })
             }
             <ListItem>
-               <Tag addTag onClick={() => setOpenCreateModal(true)}>
+               <Tag type="button" addTag onClick={() => setOpenCreateModal(true)}>
                   <ListItemText>Utwórz etykietę</ListItemText>
-                  <Icon name="add_circle" md={22} onClick={() => setOpenCreateModal(true)} />
+                  <Icon name="add_circle" md={22} />
                </Tag>
             </ListItem>
             <ListItem /> {/*Placeholder*/}

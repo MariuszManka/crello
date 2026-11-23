@@ -82,7 +82,12 @@ const EditableCard = ({ description, cardID, action, dispatch, withButtons, }) =
          />
          :
          description ? //Jeśli description jest puste wyświetlamy przycisk "Dodaj opis"
-            <ContentCard onClick={() => setOpen(true)}>
+            <ContentCard
+               component="button"
+               type="button"
+               aria-label="Edytuj opis"
+               onClick={() => setOpen(true)}
+            >
                <p style={{ padding: 0, margin: '0 auto 0 0', fontSize: 14 }}>
                   {description}
                </p>
@@ -97,4 +102,4 @@ const EditableCard = ({ description, cardID, action, dispatch, withButtons, }) =
    )
 }
 
-export default connect()(EditableCard) 
+export default connect()(EditableCard)

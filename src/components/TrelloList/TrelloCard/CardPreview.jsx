@@ -1,5 +1,5 @@
 import React, { useContext} from 'react'
-import { Typography, DialogTitle, Divider, ListItem, ListItemIcon, Link, ListItemText } from '@material-ui/core'
+import { Typography, DialogTitle, Divider, IconButton, ListItem, ListItemIcon, Link, ListItemText } from '@material-ui/core'
 import Icon from '../../Icon/Icon'
 import { StyledContent, StyledDialog, DialogGrid, Menu } from './StyledCard'
 import { makeStyles } from '@material-ui/core/styles'
@@ -80,12 +80,13 @@ const CardPreview = ({ open, setOpen }) => {
                      {title}
                   </Typography>
                </DialogTitle>
-               <Icon
-                  name="close"
-                  md={28}
+               <IconButton
+                  aria-label="Zamknij podgląd karty"
                   style={{ gridArea: 'menuIcon', alignSelf: 'start', justifySelf: 'end', padding: '13px ' }}
                   onClick={() => setOpen(false)}
-               />
+               >
+                  <Icon name="close" md={28} />
+               </IconButton>
                <Divider style={{ gridArea: 'divider' }} />
                <DialogContent title='Opis' iconName="library_books" descriptionComponent >
                   <EditableDescription description={description} cardID={id} />
@@ -97,7 +98,7 @@ const CardPreview = ({ open, setOpen }) => {
                            <ListItem key={link.id} style={{ padding: '0 8px' }}>
                               <Icon name="alternate_email" md={18} color="greyText" style={{ marginRight: 5 }} />
                               <ListItemText>
-                                 <Link className={classes.link} href={link.link} target="_blank">
+                                 <Link className={classes.link} href={link.link} target="_blank" rel="noopener noreferrer">
                                     {link.text}
                                  </Link>
                               </ListItemText>

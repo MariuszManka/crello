@@ -11,6 +11,15 @@ export const StyledCard = styled(Card)`
    position:relative;
    margin: 5px 0; 
    font-size: 15px;
+   width: 100%;
+   border: 0;
+   text-align: left;
+   cursor: pointer;
+
+   &:focus-visible {
+      outline: 3px solid ${({ theme }) => theme.colors.primary};
+      outline-offset: 2px;
+   }
 `
 
 export const StyledBookmark = styled.div`

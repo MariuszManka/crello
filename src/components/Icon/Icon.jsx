@@ -1,5 +1,5 @@
 import React from "react"
-import { StlyedIcon } from "./Icon.styled"
+import { StyledIcon } from "./Icon.styled"
 
 /**
  * Komponent ikony (oparty na material icons)
@@ -14,9 +14,9 @@ import { StlyedIcon } from "./Icon.styled"
  */
 const Icon = ({ name, ...other }) => {
   return (
-    <StlyedIcon {...other} className="material-icons">
+    <StyledIcon {...other} className="material-icons" aria-hidden="true">
       {name}
-    </StlyedIcon>
+    </StyledIcon>
   )
 }
 

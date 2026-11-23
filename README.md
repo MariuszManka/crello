@@ -24,6 +24,15 @@ npm run preview
 
 Vite buduje do dist/. Vitest uruchamia testy reducerów oraz przepływ formularza w jsdom. Testy nie zastępują pełnego audytu dostępności. Projekt pozostaje JavaScript — brak bramki TypeScript.
 
+Ostatnia weryfikacja lokalna obejmowała lint, 11 testów, build produkcyjny, audyt zależności npm oraz ręczne przejście głównych interakcji w przeglądarce.
+
+## Dostępność
+
+- Interaktywne karty, nagłówki list, etykiety i kontrolki ikonowe mają semantykę przycisków oraz dostępne nazwy.
+- Widoczny focus wspiera obsługę klawiaturą, a animacje respektują `prefers-reduced-motion`.
+- Linki otwierane w nowej karcie używają `noopener noreferrer`.
+- Przeciąganie elementów pozostaje funkcją dodatkową; podstawowe otwieranie i edycja są dostępne bez myszy.
+
 ## Architektura
 
 - src/actions: komendy z identyfikatorami generowanymi przed reducerem.

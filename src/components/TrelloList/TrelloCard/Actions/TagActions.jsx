@@ -1,5 +1,5 @@
 import React, { useReducer, useContext } from 'react'
-import { ListItem, ListItemIcon, Tooltip} from '@material-ui/core'
+import { IconButton, ListItem, ListItemIcon, Tooltip} from '@material-ui/core'
 import Icon from '../../../Icon/Icon'
 import { connect } from 'react-redux'
 import { Tag, TagsWrapper, StyledHeading, CloseIcon, StyledMenu, Paragraph } from './StyledActions'
@@ -33,26 +33,37 @@ const TagSection = () => {
             return (
                <TagsWrapper key={item.id}>
                   <Tooltip title={<p style={{ fontSize: 12 }}>{item.name}</p>} arrow>
-                     <Tag color={item.color} onClick={() => handleChoseTag(item)} />
+                     <Tag
+                        type="button"
+                        aria-label={`${chosenTagsID.includes(item.id) ? 'Usuń' : 'Dodaj'} etykietę: ${item.name}`}
+                        aria-pressed={chosenTagsID.includes(item.id)}
+                        color={item.color}
+                        onClick={() => handleChoseTag(item)}
+                     />
                   </Tooltip>
                   <Tooltip title={<p style={{ fontSize: 12 }}>Etykieta Standardowa</p>} arrow>
-                     <div>
+                     <IconButton
+                        aria-label={`${chosenTagsID.includes(item.id) ? 'Usuń' : 'Dodaj'} etykietę standardową: ${item.name}`}
+                        aria-pressed={chosenTagsID.includes(item.id)}
+                        onClick={() => handleChoseTag(item)}
+                     >
                         <Icon
                            name="bookmark"
                            md={20}
-
-                           color={chosenTagsID.includes(item.id) ? 'primary' : 'cardContentHover'}
-                           onClick={() => handleChoseTag(item)} />
-                     </div>
+                           color={chosenTagsID.includes(item.id) ? 'primary' : 'cardContentHover'} />
+                     </IconButton>
                   </Tooltip>
                   <Tooltip title={<p style={{ fontSize: 12 }}>Etykieta Priorytetowa</p>} arrow>
-                     <div>
+                     <IconButton
+                        aria-label={`Ustaw priorytetową etykietę: ${item.name}`}
+                        aria-pressed={chosenPriorityTag === item.id}
+                        onClick={() => handleSetPriority(item.name, item.id)}
+                     >
                         <Icon
                            md={25}
                            name="priority_high"
-                           color={chosenPriorityTag === item.id ? 'primary' : 'cardContentHover'}
-                           onClick={() => handleSetPriority(item.name, item.id)} />
-                     </div>
+                           color={chosenPriorityTag === item.id ? 'primary' : 'cardContentHover'} />
+                     </IconButton>
                   </Tooltip>
                </TagsWrapper>
             )
@@ -80,7 +91,9 @@ const TagsHeading = () => {
    return (
       <>
          <CloseIcon>
-            <Icon name="close" onClick={() => handleClose()} />
+            <IconButton aria-label="Zamknij wybór etykiet" onClick={() => handleClose()}>
+               <Icon name="close" />
+            </IconButton>
          </CloseIcon>
          <Search handleChange={handleOnChange} placeholder="Szukaj etykiet" />
          <StyledHeading >
