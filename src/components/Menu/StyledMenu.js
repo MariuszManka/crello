@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { List } from '@material-ui/core'
 
 export const StyledMenuTemplate = styled.div`
    position:fixed;

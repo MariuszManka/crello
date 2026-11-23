@@ -1,7 +1,6 @@
 import styled from 'styled-components'
-import Icon from '../../../Icon/Icon'
-import { Menu } from '@material-ui/core'
 
+import { Menu } from '@material-ui/core'
 export const Tag = styled.div`
    height:25px;
    width: 180px;

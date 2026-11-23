@@ -1,10 +1,9 @@
-import React, { useState, useReducer } from 'react'
-import { StyledTextArea, StyledButton, ButtonWrapper, StyledCard, ContentCard, } from './StyledEditabledCard'
-import { Card, ListItem } from '@material-ui/core'
+import React, { useState} from 'react'
+import { StyledTextArea, StyledButton, ButtonWrapper, ContentCard} from './StyledEditabledCard'
+import { ListItem } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import Icon from '../Icon/Icon'
-
 const useStyles = makeStyles({
    title: {
       fontSize: 18
@@ -47,7 +46,7 @@ export const EditableTextArea = ({ cardInfo, setOpen, action, dispatch, withButt
             autoFocus
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            onBlur={() => setOpen(false)}
+            aria-label="Opis"
             onKeyDown={(e) => {
                if (e.key === 'Enter' && !withButtons) {
                   handleSave()
@@ -57,8 +56,8 @@ export const EditableTextArea = ({ cardInfo, setOpen, action, dispatch, withButt
          {
             withButtons &&
             <ButtonWrapper>
-               <StyledButton onMouseDown={() => handleSave()}>Zapisz</StyledButton>
-               <StyledButton>Cofnij</StyledButton>
+               <StyledButton onClick={() => handleSave()}>Zapisz</StyledButton>
+               <StyledButton onClick={() => setOpen(false)}>Cofnij</StyledButton>
             </ButtonWrapper>
          }
 

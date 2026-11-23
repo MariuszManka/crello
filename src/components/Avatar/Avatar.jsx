@@ -14,7 +14,7 @@ const AvatarIcon = ({ alt, url, size, messages }) => {
 
    return (
       <>
-         <Badge badgeContent={messages} color="error">
+         <Badge overlap="rectangular" badgeContent={messages} color="error">
             <StyledAvatar size={size} alt={alt} url={url} >{alt}</StyledAvatar>
          </Badge>
       </>

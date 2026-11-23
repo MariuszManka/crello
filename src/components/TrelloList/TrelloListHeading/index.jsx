@@ -1,12 +1,11 @@
-import React, { useState, useReducer } from 'react'
+import React, { useReducer } from 'react'
 import { Heading, StyledHeaderWrapper } from './StyledListHeading'
-import ContextMenu from '../../ContextMenu/ContextMenu'
+
 import Icon from '../../Icon/Icon'
 import { StyledTextArea } from '../../EditableCard.js/StyledEditabledCard'
 import { connect } from 'react-redux'
 import { changeListTitle } from '../../../actions'
-
-const ListHeading = ({ title, dispatch }) => {
+const ListHeading = ({ title, listID, dispatch }) => {
    const [state, setState] = useReducer((state, newState) => ({ ...state, ...newState }),
       {
          open: false,
@@ -20,7 +19,7 @@ const ListHeading = ({ title, dispatch }) => {
             return
          }
          else {
-            dispatch(changeListTitle(title, value))
+            dispatch(changeListTitle(listID, value))
             setState({ open: false })
          }
       }

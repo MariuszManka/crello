@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react'
-import { Zoom, Grow, Tooltip, Dialog, DialogTitle, DialogContent, DialogActions, } from '@material-ui/core'
-import Icon from '../../../Icon/Icon'
+import { Dialog, DialogTitle, DialogContent, DialogActions} from '@material-ui/core'
+
 import { StyledColorPicker, StyledButton } from './StyledTagsMenu'
 import { addTag } from '../../../../actions/subMenusActions'
 import { AddTagsField } from '../../../globalStyles/StyledTextFields'
@@ -56,7 +56,7 @@ const CreateTag = ({ open, setOpenCreateModal, dispatch }) => {
          <DialogTitle id="customized-dialog-title" onClose={handleClose}>
             Dodaj nową etykietę
         </DialogTitle>
-         <DialogContent dividers style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', minWidth: '400px' }}>
+         <DialogContent dividers style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', minWidth: 0 }}>
             <AddTagsField
                error={buttonError}
                label="Nazwa"
@@ -78,9 +78,7 @@ const CreateTag = ({ open, setOpenCreateModal, dispatch }) => {
          <DialogActions>
             <StyledButton
                disabled={error}
-               onClick={handleClose}
-               color="primary"
-               onClick={() => handleAddTag()}
+               color="primary" onClick={() => handleAddTag()}
             >
                Zapisz
           </StyledButton>

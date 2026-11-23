@@ -1,12 +1,11 @@
 import React, { useState, useReducer } from 'react'
-import { List, ListItem, Zoom, Tooltip, Divider, ListItemText, } from '@material-ui/core'
+import { List, ListItem, Zoom, Tooltip, Divider, ListItemText} from '@material-ui/core'
 import Icon from '../../../Icon/Icon'
-import { Tag, } from './StyledTagsMenu'
+import { Tag} from './StyledTagsMenu'
 import { connect } from 'react-redux'
-import { changeTagColor } from '../../../../actions/subMenusActions'
+
 import CreateTag from './CreateTag'
 import EditTag from './EditTag'
-
 /**
  * 
  * @param {Object} tagsMenu - objekt tagsMenu ze Stora. Zawiera najważniejsze informacje takie jak id, nazwa czy też kolor danej etykiety

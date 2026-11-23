@@ -1,12 +1,11 @@
-import React, { useReducer } from 'react'
+import React from 'react'
 import Toolbar from '@material-ui/core/Toolbar'
 import Icon from '../../../Icon/Icon'
-import { SearchWrapper, StyledTextField, } from './StyledFindCards'
+import { SearchWrapper, StyledTextField} from './StyledFindCards'
 import { connect } from 'react-redux'
 import { useState } from 'react'
 import { ListItem, CardContent, Card, Typography, Divider } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-
 const useStyles = makeStyles({
    title: {
       fontSize: 14,
@@ -20,6 +19,7 @@ export const Search = ({ handleChange, placeholder }) => {
             <StyledTextField
                autoFocus
                placeholder={placeholder}
+               inputProps={{ "aria-label": placeholder }}
                onChange={(e) => {
                   handleChange(e.target.value)
                }}
@@ -34,18 +34,9 @@ export const Search = ({ handleChange, placeholder }) => {
 function FindCardsMenu({ cards }) {
    const classes = useStyles()
 
-   const [findedCards, setFindedCards] = useState([])
-
-   const handleOnInput = (value) => {
-      const allCards = []
-
-      cards.map(item => item.map(i => {
-         allCards.push(i.title)
-      }))
-
-      setFindedCards(allCards.filter(card => card.toLowerCase().includes(value.toLowerCase())))
-   }
-
+   const [query, setQuery] = useState('')
+   const findedCards = query ? cards.flat().filter(card => card.title.toLowerCase().includes(query.toLowerCase())) : []
+   const handleOnInput = setQuery
    return (
       <div >
          <Search handleChange={handleOnInput} placeholder="Szukaj" />
@@ -54,7 +45,7 @@ function FindCardsMenu({ cards }) {
          {
             findedCards.map((card, index) => {
                return (
-                  <ListItem key={index}>
+                  <ListItem key={card.id}>
                      <Card>
                         <CardContent>
                            <Typography className={classes.title}>

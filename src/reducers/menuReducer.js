@@ -1,78 +1,49 @@
-import { CONSTANS } from '../actions'
-import React from 'react'
-import { InfoMenu, Calendar, FindCardsMenu, TagsMenu, PinnedMenu, FilesMenu, ArchiveMenu, SettingsMenu } from '../components/Menu/SubMenus'
+import { CONSTANS } from "../actions/constants";
 
 const initialState = {
-   title: 'Menu',
-   open: false,
-   iconVisible: true,
-   menuIcons: [
-      { id: 0, icon: 'info', description: 'Informacje o tablicy', component: <InfoMenu /> },
-      // { id: 1, icon: 'add_photo_alternate', description: 'Zmień tło', component: <ChangePictureMenu /> },
-      { id: 1, icon: 'search', description: 'Szukaj kart', component: <FindCardsMenu /> },
-      { id: 2, icon: 'local_offer', description: 'Etykiety', component: <TagsMenu /> },
-      { id: 3, icon: 'attach_file', description: 'Przypięte', component: <PinnedMenu /> },
-      { id: 4, icon: 'layers', description: 'Pliki', component: <FilesMenu /> },
-      { id: 5, icon: 'calendar_today', description: 'Kalendarz', component: <Calendar /> },
-      { id: 6, icon: 'archive', description: 'Archiwum', component: <ArchiveMenu /> },
-      { id: 7, icon: 'settings', description: 'Ustawienia', component: <SettingsMenu /> },
-   ],
-   currentOption: [],
-}
+  title: "Menu",
+  open: false,
+  iconVisible: true,
+  menuIcons: [
+    { id: 0, icon: "info", description: "Informacje o tablicy" },
+    // { id: 1, icon: 'add_photo_alternate', description: 'Zmień tło' },
+    { id: 1, icon: "search", description: "Szukaj kart" },
+    { id: 2, icon: "local_offer", description: "Etykiety" },
+    { id: 3, icon: "attach_file", description: "Przypięte" },
+    { id: 4, icon: "layers", description: "Pliki" },
+    { id: 5, icon: "calendar_today", description: "Kalendarz" },
+    { id: 6, icon: "archive", description: "Archiwum" },
+    { id: 7, icon: "settings", description: "Ustawienia" },
+  ],
+  currentOption: [],
+};
 
 const menuReducer = (state = initialState, action) => {
-   switch (action.type) {
-
-      case CONSTANS.SET_MENU_OPEN:
-         {
-            if (state.open !== action.payload) {
-               const newState = state
-               newState.open = action.payload
-               return { ...newState }
-            }
-            else {
-               return state
-            }
-         }
-
-
-      case CONSTANS.SET_ICON_VISIBLE: {
-         if (state.iconVisible !== action.payload) {
-            const newState = state
-            newState.iconVisible = action.payload
-            return { ...newState }
-         }
-         else {
-            return state
-         }
-      }
-
-      case CONSTANS.MENU_CLOSE:
-         {
-            const { isOpen, isIconVisible } = action.payload
-            const newState = state
-            newState.open = isOpen
-            newState.iconVisible = isIconVisible
-            newState.currentOption = []
-            state.title = 'Menu'
-            return { ...newState }
-         }
-
-      case CONSTANS.MENU_OPTION_CLICK:
-         {
-            const { id, title } = action.payload
-            const newState = { ...state }
-            newState.currentOption = newState.menuIcons.filter(icon => icon.id === id)
-            newState.open = true
-            newState.title = title
-            newState.iconVisible = true
-            return { ...newState }
-         }
-
-
-      default:
-         return state
-   }
-}
-
-export default menuReducer 
+  switch (action.type) {
+    case CONSTANS.SET_MENU_OPEN:
+      return { ...state, open: action.payload };
+    case CONSTANS.SET_ICON_VISIBLE:
+      return { ...state, iconVisible: action.payload };
+    case CONSTANS.MENU_CLOSE:
+      return {
+        ...state,
+        open: action.payload.isOpen,
+        iconVisible: action.payload.isIconVisible,
+        currentOption: [],
+        title: "Menu",
+      };
+    case CONSTANS.MENU_OPTION_CLICK:
+      return {
+        ...state,
+        open: true,
+        iconVisible: true,
+        title: action.payload.title,
+        currentOption: state.menuIcons.filter(
+          (item) => item.id === action.payload.id,
+        ),
+      };
+    default:
+      return state;
+  }
+};
+export default menuReducer;

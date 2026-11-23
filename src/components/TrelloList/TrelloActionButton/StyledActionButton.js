@@ -31,7 +31,10 @@ export const StyledTextArea = styled(TextareaAutosize)`
    `
 
 export const StyledOptionWrapper = styled.div`
-      display:flex;
+      border: 0;
+    background: transparent;
+    text-align: left;
+    display:flex;
       justify-content: space-between;
       align-items:center;
       height:100%;

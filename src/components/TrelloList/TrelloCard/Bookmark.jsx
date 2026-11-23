@@ -6,10 +6,10 @@ import { Tooltip } from '@material-ui/core'
 
 const Bookmark = ({ tagMenu, tag }) => {
 
-   const [tagColor] = [...tagMenu.tags.filter(item => item.name === tag)]
+   const [tagColor] = [...tagMenu.tags.filter(item => item.id === tag)]
 
    return (
-      <Tooltip title={<p style={{ fontSize: '12px', }}>{tag}</p>} arrow>
+      <Tooltip title={<p style={{ fontSize: '12px', }}>{tagColor ? tagColor.name : tag}</p>} arrow>
          <StyledBookmark color={tagColor && tagColor.color} />
       </Tooltip>
    )

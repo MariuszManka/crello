@@ -7,10 +7,9 @@ import { sort } from '../actions'
 import { theme, StyledAppGrid, StyledPageContent, GlobalStyle } from './globalStyles'
 import Menu from './Menu/Menu'
 import TopBar from './TopBar/TopBar'
-import { Grid } from '@material-ui/core'
-import { createMuiTheme, ThemeProvider as MaterialThemeProvider } from '@material-ui/core/styles'
 
-const materialTheme = createMuiTheme({
+import { createTheme, ThemeProvider as MaterialThemeProvider } from '@material-ui/core/styles'
+const materialTheme = createTheme({
   palette: {
     primary: {
       main: '#fcae12',

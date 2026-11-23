@@ -1,7 +1,7 @@
 import React from 'react'
 import { List, ListItem, ListItemText, ListItemIcon, Avatar, Divider } from '@material-ui/core'
 import Icon from '../../../Icon/Icon'
-import EditableCard from '../../../EditableCard.js/index.js'
+import EditableCard from '../../../EditableCard.js/index'
 import { connect } from 'react-redux'
 import { setInfoDescription } from '../../../../actions/subMenusActions'
 

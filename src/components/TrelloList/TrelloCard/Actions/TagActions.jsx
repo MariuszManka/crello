@@ -1,13 +1,11 @@
-import React, { useReducer, useState, createContext, useContext } from 'react'
-import { ListItem, ListItemIcon, Tooltip, Typography } from '@material-ui/core'
+import React, { useReducer, useContext } from 'react'
+import { ListItem, ListItemIcon, Tooltip} from '@material-ui/core'
 import Icon from '../../../Icon/Icon'
 import { connect } from 'react-redux'
 import { Tag, TagsWrapper, StyledHeading, CloseIcon, StyledMenu, Paragraph } from './StyledActions'
 import { Search } from '../../../Menu/SubMenus/FindCardsMenu/FindCardsMenu'
 import { setPriorityTag, setTags } from '../../../../actions'
-import { CardGlobalContext } from '../../TrelloListWrapper/TrelloListWrapper'
-
-
+import { CardGlobalContext } from '../../CardContext'
 const LocalContext = React.createContext(null) //Lokalny kontekst
 
 /**
@@ -24,42 +22,10 @@ const TagSection = () => {
    const { dispatch, allTags } = localData
    const { card: { id: cardID, priorityTag, tags } } = globalCardData
 
-   const [currentTag] = [...allTags.filter(tag => tag.name === priorityTag)] //Filtrowanie tablicy wszystkich tagów w celu sprawdzenia czy  
-   const [state, setState] = useReducer((state, newState) => ({ ...state, ...newState }), {
-      chosenPriorityTag: currentTag && currentTag.id,//Wybrany przez usera tag główny
-      chosenTagsID: tags.map(tag => tag.id) //Tablica która przechowuje ID wybranych przez usera tagów standardowych
-   })
-
-   const { chosenPriorityTag, chosenTagsID } = state
-
-   const handleSetPriority = (name, id) => {
-      dispatch(setPriorityTag(name, cardID))
-
-      allTags.map(tag => tag.id)
-         .forEach(i => {
-            if (i === id)
-               setState({ chosenPriorityTag: id })
-         })
-   }
-
-   const handleChoseTag = (tag) => {
-      const { id } = tag
-
-      if (tags.find(tag => tag.id === id)) {
-
-         //Gdy kliknięto dwa razy ten sam znacznik - filtrujemy tablicę ze znacznikami i zwracamy nową bez klikniętego znacznika
-         const filteredArray = tags.filter(tag => tag.id !== id)
-         chosenTagsID.length = 0 //Usuwamy wszystkie elementy z tablice chosenTagsID (opróżniamy ją)
-         filteredArray.map(tag => chosenTagsID.push(tag.id)) //Zastępujemy ją nową tablicą z aktualnymi indeksami
-         dispatch(setTags(filteredArray, cardID))
-      }
-      else {
-         //Gdy klikniętego znacznika nie ma w tablicy. Dodajemy go do niej i wywołuejmy akcję setTags.
-         tags.push(tag)
-         chosenTagsID.push(id)//Dodajemy id klikniętego tagu do tablicy
-         dispatch(setTags(tags, cardID))
-      }
-   }
+   const chosenPriorityTag = priorityTag
+   const chosenTagsID = tags.map(tag => tag.id)
+   const handleSetPriority = (name, id) => dispatch(setPriorityTag(id, cardID))
+   const handleChoseTag = tag => dispatch(setTags(chosenTagsID.includes(tag.id) ? chosenTagsID.filter(id => id !== tag.id) : [...chosenTagsID, tag.id], cardID))
 
    return (
       allTags.length ?
@@ -102,13 +68,13 @@ const TagSection = () => {
 const TagsHeading = () => {
 
    const localData = useContext(LocalContext)
-   const globalCardData = useContext(CardGlobalContext)
 
-   const { setState, handleClose, allTags } = localData
-   const { tags } = globalCardData
+
+   const { setQuery, handleClose } = localData
+
 
    const handleOnChange = (value) => {
-      setState({ allTags: tags.filter(tag => tag.name.toLowerCase().includes(value.toLowerCase())) })
+      setQuery(value)
    }
 
    return (
@@ -134,11 +100,12 @@ const TagActions = ({ dispatch, }) => {
    } = globalCardData
 
    const [state, setState] = useReducer((state, newState) => ({ ...state, ...newState }), {
-      allTags: globalTags,
+      query: '',
       anchorEl: null
    })
 
-   const { anchorEl, allTags } = state
+   const { anchorEl, query } = state
+   const allTags = globalTags.filter(tag => tag.name.toLowerCase().includes(query.toLowerCase()))
 
    const handleClick = (event) => {
       setState({ anchorEl: event.currentTarget })
@@ -152,7 +119,7 @@ const TagActions = ({ dispatch, }) => {
       <LocalContext.Provider value={{
          dispatch,
          handleClose,
-         setState,
+         setQuery: query => setState({ query }),
          allTags
       }}>
          <ListItem button onClick={handleClick} >

@@ -1,4 +1,5 @@
-import React, { createContext } from 'react'
+import React from 'react'
+import { CardGlobalContext } from '../CardContext'
 import {
    TrelloListWrapper
 } from './StyledListWrapper'
@@ -7,7 +8,7 @@ import ActionButton from '../TrelloActionButton'
 import { connect } from 'react-redux'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 
-export const CardGlobalContext = createContext(null)
+
 
 
 
@@ -29,12 +30,12 @@ const TrelloList = ({ lists, tags }) => {
                               {...provided.droppableProps}
                               ref={provided.innerRef}
                            >
-                              <ListHeading key={list.id} title={list.title} />
+                              <ListHeading key={list.id} listID={list.id} title={list.title} />
                               {
                                  list.cards.map((card, index) =>
-                                    <CardGlobalContext.Provider
+                                    <CardGlobalContext.Provider key={card.id}
                                        value={{
-                                          card,
+                                          card: {...card, tags: card.tags.map(id => tags.find(tag => tag.id === id)).filter(Boolean)},
                                           tags
                                        }}>
                                        <ListCard

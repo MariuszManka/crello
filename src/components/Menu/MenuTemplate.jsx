@@ -1,3 +1,5 @@
+import { InfoMenu, FindCardsMenu, TagsMenu, PinnedMenu, FilesMenu, Calendar, ArchiveMenu, SettingsMenu } from './SubMenus'
+const menuViews = [InfoMenu, FindCardsMenu, TagsMenu, PinnedMenu, FilesMenu, Calendar, ArchiveMenu, SettingsMenu]
 import React from 'react'
 import Icon from '../Icon/Icon'
 import { Divider, IconButton, } from '@material-ui/core'
@@ -32,7 +34,7 @@ const MenuTemplate = ({ children, dispatch, menu }) => {
       dispatch(menuClose(false, true))
    }
 
-   console.log(option && option.component)
+   const View = option && menuViews[option.id]
 
 
    return (
@@ -56,7 +58,7 @@ const MenuTemplate = ({ children, dispatch, menu }) => {
          <Divider />
 
          {
-            option ? option.component : children //option.component - komponent podmenu z tablicy currentOption ze stora, children standardowe menu z ikonami
+            View ? <View /> : children //option.component - komponent podmenu z tablicy currentOption ze stora, children standardowe menu z ikonami
          }
       </StyledMenuTemplate>
    )

@@ -15,27 +15,26 @@ const Form = ({ list, setOpen, id, dispatch }) => {
    const cardheight = list ? 30 : 80
 
    const handleAddList = () => {
-      if (value)
+      if (value.trim())
          dispatch(addList(value))
 
       return
    }
 
    const handleAddCard = () => {
-      if (value)
+      if (value.trim())
          dispatch(addCard(id, value))
 
       return
    }
 
    return (
-      <FormWrapper>
+      <FormWrapper as="form" onSubmit={e => { e.preventDefault(); list ? handleAddList() : handleAddCard(); setOpen(false) }}>
          <Card style={{ minHeight: cardheight, minWidth: 250 }}>
             <StyledTextArea
                autoFocus
                placeholder={placeholder}
                value={value}
-               onBlur={() => setOpen(false)}
                onChange={(e) => setValue(e.target.value)}
                cardheight={cardheight}
             />
@@ -44,7 +43,7 @@ const Form = ({ list, setOpen, id, dispatch }) => {
             <StyledAddButton
                variant="contained"
                endIcon={<Icon name="library_add"></Icon>}
-               onMouseDown={() => list ? handleAddList() : handleAddCard()}
+               type="submit"
             >
                {buttonTitle}
             </StyledAddButton>
@@ -62,7 +61,7 @@ const ButtonWrapper = ({ list, setOpen }) => {
    const buttonText = list ? 'Dodaj kolejną listę' : 'Dodaj kolejną kartę'
 
    return (
-      <StyledButtonWrapper onClick={() => setOpen(true)} list={list}>
+      <StyledButtonWrapper as="button" type="button" onClick={() => setOpen(true)} list={list}>
          <Icon name="add"></Icon>
          <p style={{ cursor: 'pointer' }}>{buttonText}</p>
       </StyledButtonWrapper>

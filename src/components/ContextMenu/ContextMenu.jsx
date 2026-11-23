@@ -1,15 +1,14 @@
-import React, { useRef, useState } from 'react'
-import { Menu, MenuItem, } from '@material-ui/core'
+import React, { useState } from 'react'
+import { Menu, MenuItem} from '@material-ui/core'
 import { connect } from 'react-redux'
 import { changeListTitle } from '../../actions'
 import { StyledInput } from './StyledContextMenu'
-
 const initialState = {
    mouseX: null,
    mouseY: null,
 }
 
-const Input = ({ setOpen, title, dispatch }) => {
+const Input = ({ setOpen, title, listID, dispatch }) => {
    const [value, setValue] = useState(title)
 
    const handleChange = (e) => {
@@ -18,14 +17,14 @@ const Input = ({ setOpen, title, dispatch }) => {
 
    const handleEnter = (e, type) => {
       if (e.key === 'Enter' && value) {
-         dispatch(changeListTitle(title, value))
+         dispatch(changeListTitle(listID, value))
          setOpen(false)
       }
    }
 
    const handleBlur = () => {
       if (value) {
-         dispatch(changeListTitle(title, value))
+         dispatch(changeListTitle(listID, value))
          setOpen(false)
       }
 
@@ -48,7 +47,7 @@ const Input = ({ setOpen, title, dispatch }) => {
    )
 }
 
-function ContextMenu({ children, isOpen, setOpen, dispatch, title }) {
+function ContextMenu({ children, isOpen, setOpen, dispatch, title, listID }) {
 
    const [state, setState] = useState(initialState)
 
@@ -73,7 +72,7 @@ function ContextMenu({ children, isOpen, setOpen, dispatch, title }) {
          <div >
             {
                isOpen ?
-                  <Input dispatch={dispatch} setOpen={setOpen} title={title} />
+                  <Input listID={listID} dispatch={dispatch} setOpen={setOpen} title={title} />
                   :
                   children
             }

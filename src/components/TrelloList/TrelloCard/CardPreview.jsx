@@ -1,13 +1,12 @@
-import React, { useState, useContext, useReducer } from 'react'
+import React, { useContext} from 'react'
 import { Typography, DialogTitle, Divider, ListItem, ListItemIcon, Link, ListItemText } from '@material-ui/core'
 import Icon from '../../Icon/Icon'
 import { StyledContent, StyledDialog, DialogGrid, Menu } from './StyledCard'
 import { makeStyles } from '@material-ui/core/styles'
 import TagActions from './Actions/TagActions'
-import { CardGlobalContext } from '../TrelloListWrapper/TrelloListWrapper'
+import { CardGlobalContext } from '../CardContext'
 import { changeCardDescription } from '../../../actions'
 import EditableCard from '../../EditableCard.js'
-
 const useStyles = makeStyles({
    title: {
       fontSize: 18
@@ -61,46 +60,9 @@ const DialogContent = ({ title, children, iconName, ...other }) => {
    )
 }
 
-const EditableDescription = ({ description, cardID }) => {
-   const classes = useStyles()
-
-   const [open, setOpen] = useState(description ? true : false)
-
-   return (
-      <>
-         <div >
-            {/* {
-               open ?
-                  <StyledTextArea
-                     value={value}
-                     autoFocus
-                     style={{ margin: '5px 10px 10px 0', padding: '5px 10px' }}
-                     onChange={(e) => setState({ value: e.target.value })}
-                     onBlur={(e) => handleSave()}
-                     onKeyDown={(e) => {
-                        if (e.key === 'Enter')
-                           handleSave()
-                     }}
-                  />
-                  :
-                  description ?
-                     <ContentCard onClick={() => setState({ open: true })}>
-                        {description}
-                     </ContentCard>
-                     :
-                     <ListItem button className={classes.addDescriptionButton} onClick={() => setState({ open: true })}>
-                        <p style={{ padding: 0, margin: '0 auto 0 0', fontSize: 13 }}>
-                           Dodaj Opis
-                           </p>
-                        <Icon name="add" md={20} />
-                     </ListItem>
-            } */}
-            <EditableCard description={description} action={changeCardDescription} cardID={cardID} />
-
-         </div>
-      </>
-   )
-}
+const EditableDescription = ({ description, cardID }) => (
+   <EditableCard description={description} action={changeCardDescription} cardID={cardID} />
+)
 
 const CardPreview = ({ open, setOpen }) => {
 

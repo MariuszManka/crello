@@ -1,15 +1,16 @@
-import { CONSTANS } from '../actions'
+import { createId } from "./createId";
+import { CONSTANS } from "./constants";
 
 /**
  * Funkcja ustawiająca opis tablicy
  * @param {String} value -ustawienie opisu listy, wykorzystywane w sub menu InfoMenu
  */
 export const setInfoDescription = (value) => {
-   return {
-      type: CONSTANS.SET_INFO_DESCRIPTION,
-      payload: value
-   }
-}
+  return {
+    type: CONSTANS.SET_INFO_DESCRIPTION,
+    payload: value,
+  };
+};
 
 /**
  * akcja do zmiany koloru etykiety
@@ -17,11 +18,11 @@ export const setInfoDescription = (value) => {
  * @param {Number} id - id etykiety
  */
 export const changeTagColor = (color, name, id) => {
-   return {
-      type: CONSTANS.CHANGE_TAG,
-      payload: { color, name, id }
-   }
-}
+  return {
+    type: CONSTANS.CHANGE_TAG,
+    payload: { color, name, id },
+  };
+};
 
 /**
  * akcja do dodawania etykiet
@@ -29,8 +30,8 @@ export const changeTagColor = (color, name, id) => {
  * @param {String} name - nazwa nowej etykiety
  */
 export const addTag = (color, name) => {
-   return {
-      type: CONSTANS.ADD_TAG,
-      payload: { color, name }
-   }
-}
+  return {
+    type: CONSTANS.ADD_TAG,
+    payload: { id: createId("tag"), color, name },
+  };
+};
