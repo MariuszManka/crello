@@ -18,18 +18,18 @@ const TrelloList = ({ lists, tags }) => {
       lists.map((list, index) => {
          return (
             <Draggable draggableId={String(list.id)} index={index} key={list.id}>
-               {provided => (
+               {draggableProvided => (
                   <TrelloListWrapper
-                     {...provided.draggableProps}
-                     ref={provided.innerRef}
+                     {...draggableProvided.draggableProps}
+                     ref={draggableProvided.innerRef}
                   >
                      <Droppable droppableId={String(list.id)}>
-                        {(provided) => (
+                        {(droppableProvided) => (
                            <div
-                              {...provided.droppableProps}
-                              ref={provided.innerRef}
+                              {...droppableProvided.droppableProps}
+                              ref={droppableProvided.innerRef}
                            >
-                              <ListHeading key={list.id} listID={list.id} title={list.title} dragHandleProps={provided.dragHandleProps} />
+                              <ListHeading key={list.id} listID={list.id} title={list.title} dragHandleProps={draggableProvided.dragHandleProps} />
                               {
                                  list.cards.map((card, index) =>
                                     <CardGlobalContext.Provider key={card.id}
@@ -43,7 +43,7 @@ const TrelloList = ({ lists, tags }) => {
                                        />
                                     </CardGlobalContext.Provider>
                                  )}
-                              {provided.placeholder}
+                              {droppableProvided.placeholder}
                               <ActionButton id={list.id} />
                            </div>
                         )}
